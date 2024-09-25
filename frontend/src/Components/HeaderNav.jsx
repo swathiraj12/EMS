@@ -45,7 +45,7 @@ const HeaderNav = () => {
 
                                 <li className="dropdown-item" onClick={() => setProfileShow(true)}>My Profile</li>
                                 
-                                <li className="dropdown-item" onClick={() => setProfileShow(true)}>Edit Profile</li>
+                                <li className="dropdown-item" onClick={() => setProfileEdit(true)}>Edit Profile</li>
                                 
                                 <li className="dropdown-item" onClick={signout}>Sign out</li>
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import '../Assets/CSS/SignIn.css'
 import signinImg from '../Assets/Images/signin.jpg'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../Context/ContextAuth'
 
 const SignIn = () => {
@@ -67,6 +67,8 @@ const SignIn = () => {
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
+
+                        <NavLink to='/forgetpassword' className='text-end d-block mt-1 mb-3'><h6>Forgot Password?</h6></NavLink>
 
                         {errorMessage && (
                             <div className="alert alert-danger mt-3 mb-3" role="alert">

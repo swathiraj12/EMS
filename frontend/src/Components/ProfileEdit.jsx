@@ -1,10 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Modal from 'react-bootstrap/Modal';
 import myProfilePic from '../Assets/Images/profile1.jpg'
 import { useAuth } from '../Context/ContextAuth';
+import '../Assets/CSS/ProfileshowEdit.css'
 
 const ProfileEdit = (props) => {
-    const { user } = useAuth()
+    const { user, signin } = useAuth()
+
+    const [name, setName] = useState('')
+    const [role, setRole] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('**********')
+    const [readOnly, setReadOnly] = useState(true)
+
+    useEffect(() => {
+        setName(user.name)
+        setEmail(user.email)
+        setRole(user.role)
+        setReadOnly(true)
+    }, [])
     return (
         <div>
             <Modal
@@ -18,7 +32,7 @@ const ProfileEdit = (props) => {
                     <div className="container">
                         <div className="row justify-content-center">
                             <div className="d-flex flex-column align-items-center">
-                                <h3 className="text-center mb-2 empCardTitle">My Profile</h3>
+                                <h2 className="text-center mb-2 empCardTitle">Edit Profile</h2>
                                 <img src={myProfilePic}
                                     className="img-fluid rounded-circle"
                                     style={{

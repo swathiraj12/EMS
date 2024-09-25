@@ -167,7 +167,7 @@ const EditEmployee = () => {
 
                     <div className="row mt-3">
                         <div className="col-md-6">
-                            <select className="form-select"
+                            <select readOnly className="form-select"
                                 value={user.role}
                                 name='role'
                                 onChange={handleInputChange}>

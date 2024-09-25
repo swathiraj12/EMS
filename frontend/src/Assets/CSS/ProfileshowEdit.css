@@ -9,3 +9,13 @@
     box-shadow: none;
     border: none;
 }
+.modal-header{
+    border: none;
+}
+.profViewInput{
+    border: 1px solid #694F8E;
+}
+.profViewInput:focus{
+    border: 1px solid #694F8E;
+    box-shadow: none;
+}

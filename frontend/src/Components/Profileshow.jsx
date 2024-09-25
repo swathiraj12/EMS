@@ -2,7 +2,7 @@ import React from 'react'
 import Modal from 'react-bootstrap/Modal';
 import myProfilePic from '../Assets/Images/profile1.jpg'
 import { useAuth } from '../Context/ContextAuth';
-import '../Assets/CSS/Profileshow.css'
+import '../Assets/CSS/ProfileshowEdit.css'
 
 let Profileshow = (props) => {
     const { user } = useAuth()
@@ -19,7 +19,7 @@ let Profileshow = (props) => {
                     <div className="container">
                         <div className="row justify-content-center">
                             <div className="d-flex flex-column align-items-center">
-                                <h3 className="text-center mb-2 empCardTitle">My Profile</h3>
+                                <h2 className="text-center mb-2 empCardTitle">My Profile</h2>
                                 <img src={myProfilePic}
                                     className="img-fluid rounded-circle"
                                     style={{
