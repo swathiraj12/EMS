@@ -1,0 +1,46 @@
+/* Admin Header Styles */
+.admin-header{
+    width: 100%;
+    height: 10vh;
+    color: #fff;
+    position: relative;
+}
+.page-name{
+    font-size: 40px;
+    font-weight: bold;
+    color: #694F8E;
+}
+.welcome-note span{
+    font-size: 20px;
+    color: #694F8E;
+}
+.user-profile-picture img{
+    border: 2px solid #fff;
+    border-radius: 50%;
+}
+.dropdownSetting button i{
+    font-size: 20px;
+}
+ul .dropdown-item:focus, ul .dropdown-item:hover, ul .dropdown-item:active{
+    background-color: #694F8E;
+    color: #fff;
+    border-radius: 20px;
+}
+.dropdown-menu.show{
+    border: 1px solid #694F8E;
+    cursor: pointer;
+}
+.dropdown-menu li{
+    font-size: 15px;
+}
+.dropdownSetting .dropdown-toggle{
+    border: none;
+    color: white;
+    border-radius: 5px;
+}
+.dropdownSetting .dropdown-toggle:hover{
+    color: #694F8E;
+}
+.dropdownSetting .dropdown-toggle::after {
+    display: none;
+}

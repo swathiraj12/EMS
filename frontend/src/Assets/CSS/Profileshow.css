@@ -1,0 +1,11 @@
+.empCardTitle{
+    font-weight: 600;
+}
+.empCardRole{
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.btn-close:focus{
+    box-shadow: none;
+    border: none;
+}

@@ -1,0 +1,25 @@
+.dashBannerImg{
+    box-shadow: 0px 0px 25px black;
+}
+.empCountCard{
+    box-shadow: 0 0 10px rgb(179,177,177);
+    border: none;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: all 0.5s ease;
+}
+.empCountCard:hover{
+    transform: scale(1.05);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+.empCount{
+    font-weight: 700;
+}
+.empCardMoreInfo a{
+    text-decoration: none;
+    color: #9370DB;
+}
+.empCardMoreInfo a:hover{
+    color: #694F8E;
+    text-decoration: underline;
+}

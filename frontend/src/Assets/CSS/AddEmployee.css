@@ -1,0 +1,39 @@
+.addemp-form{
+    width: 100%;
+    max-width: 900px;
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../Images/form-bg.jpg) no-repeat center center;
+    background-size: cover;
+    box-shadow: 0 4px 10px #807b7b;
+}
+.addemp-form fieldset{
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(5px);
+}
+.addemp-form .form-label{
+    display: block;
+    font-weight: bold;
+    color: #333;
+}
+.addemp-form .form-control:focus,
+.addemp-form .form-select:focus{
+    outline: none;
+    box-shadow: none;
+    border: 1px solid #694F8E;
+}
+.addemp-form .add-btn{
+    background-color: #9370DB;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    padding: 10px 15px;
+}
+.addemp-form .add-btn:hover{
+    background-color: #694F8E;
+    color: #fff;
+}

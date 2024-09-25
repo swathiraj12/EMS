@@ -1,0 +1,68 @@
+.app-layout{
+    background-color: #D8BFD8;
+    min-height: 100vh;
+}
+.sidebar{
+    height: 100vh;
+    background-color: #D8BFD8;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    left: 0;
+}
+.main-content {
+    background-color: #E6E6FA;
+    height: 100vh;
+    overflow: auto;
+}
+.auth-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.logo{
+    text-transform: uppercase;
+    color: #694F8E;
+}
+.panel-heading{
+    text-transform: uppercase;
+    color: #694F8E;
+}
+.sidebar ul{
+    list-style: none;
+    padding: 0;
+}
+.sidebar ul li a{
+    color: #5e3f8e;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 18px;
+    text-transform: uppercase;
+    display: block;
+    border-radius: 5px;
+}
+.sidebar ul li a:hover{
+    background: #5e3f8e;
+    color: #fff;
+}
+.active-link{
+    background: #5e3f8e;
+    color: white !important;
+    font-weight: bold;
+    border-radius: 5px;
+}
+.btn-sec .signoutBtn{
+    background-color: #9370DB;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 0;
+}
+.btn-sec .signoutBtn:hover{
+    background-color: #694F8E;
+    color: #fff;
+}
