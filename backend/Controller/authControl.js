@@ -220,41 +220,41 @@ const UserResetPwd = async (req, res) => {
     }
 }
 //Edit profile in admin page
-const EditProfData = async (req, res) => {
-    try {
-        const { name, email } = req.body
+// const EditProfData = async (req, res) => {
+//     try {
+//         const { name, email } = req.body
 
-        const user = authModel.findOne({ email })
-        if (!user) {
-            return res.status(404).json({Message: 'User not found'})
-        }
+//         const user = authModel.findOne({ email })
+//         if (!user) {
+//             return res.status(404).json({Message: 'User not found'})
+//         }
 
-        const employee = await empModel.findOne({ email })
-        if (employee) {
-            employee.name = name
-            await employee.save()
-        }
+//         const employee = await empModel.findOne({ email })
+//         if (employee) {
+//             employee.name = name
+//             await employee.save()
+//         }
 
-        const token = jwt.sign(
-            {
-            employee: employee ? employee : null,
-            id: user._id,
-            name: name,
-            email: user.email,
-            role: user.role,
-            password: user.password
-            },
-            'secret-key',
-            { expiresIn: '2h' }
-        )
-        user.name = name
-        await user.save()
-        return res.status(200).json({Message: 'Employee details edited successfully',token})
-    } catch (error) {
-        console.log(error)
-        return res.status(500).json({ message: "Internal error in editing employee details" })
-    }
-}
+//         const token = jwt.sign(
+//             {
+//             employee: employee ? employee : null,
+//             id: user._id,
+//             name: name,
+//             email: user.email,
+//             role: user.role,
+//             password: user.password
+//             },
+//             'secret-key',
+//             { expiresIn: '2h' }
+//         )
+//         user.name = name
+//         // await user.save()
+//         return res.status(200).json({Message: 'Employee details edited successfully',token})
+//     } catch (error) {
+//         console.log(error)
+//         return res.status(500).json({ message: "Internal error in editing employee details" })
+//     }
+// }
 
 module.exports = {
     Signup,
@@ -264,5 +264,5 @@ module.exports = {
     UserForgetPwd,
     UserResetPwd,
     GetUserDetails,
-    EditProfData
+    // EditProfData
 }
