@@ -12,6 +12,7 @@ const transporter = nodeMailer.createTransport({
         pass: process.env.sendingPass
     }
 })
+//get user details from employee model
 const GetUserDetails = async (req, res) => {
     try {
         const { email } = req.body
@@ -32,7 +33,7 @@ const GetUserDetails = async (req, res) => {
         return res.status(500).json({ Message: 'Internal error in fetching User details', error })
     }
 }
-
+//singup
 const Signup = async (req, res) => {
     try {
         const { name, email, password, confirmPwd, role } = req.body
@@ -115,7 +116,7 @@ const verifyOTP = async (req, res) => {
         return res.status(500).json({ Message: 'Internal error in User verification', error })
     }
 }
-
+//signin
 const Signin = async (req, res) => {
     try {
         const { email, password } = req.body
@@ -218,4 +219,50 @@ const UserResetPwd = async (req, res) => {
         return res.status(500).json({ message: "Internal error in changing password" })
     }
 }
-module.exports = { Signup, Signin, verifyOTP, UserPwdChange, UserForgetPwd, UserResetPwd, GetUserDetails }
+//Edit profile in admin page
+const EditProfData = async (req, res) => {
+    try {
+        const { name, email } = req.body
+
+        const user = authModel.findOne({ email })
+        if (!user) {
+            return res.status(404).json({Message: 'User not found'})
+        }
+
+        const employee = await empModel.findOne({ email })
+        if (employee) {
+            employee.name = name
+            await employee.save()
+        }
+
+        const token = jwt.sign(
+            {
+            employee: employee ? employee : null,
+            id: user._id,
+            name: name,
+            email: user.email,
+            role: user.role,
+            password: user.password
+            },
+            'secret-key',
+            { expiresIn: '2h' }
+        )
+        user.name = name
+        await user.save()
+        return res.status(200).json({Message: 'Employee details edited successfully',token})
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ message: "Internal error in editing employee details" })
+    }
+}
+
+module.exports = {
+    Signup,
+    Signin,
+    verifyOTP,
+    UserPwdChange,
+    UserForgetPwd,
+    UserResetPwd,
+    GetUserDetails,
+    EditProfData
+}

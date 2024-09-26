@@ -13,7 +13,9 @@ authRouter.post('/change-pwd/:id', authControl.UserPwdChange)
 authRouter.post('/forget-pwd', authControl.UserForgetPwd)
 //Reset Password
 authRouter.post('/reset-pwd', authControl.UserResetPwd)
-
+//get user details from employee model
 authRouter.get('/userget', authControl.GetUserDetails)
+//Edit profile in admin page
+authRouter.put('/empedit', authControl.EditProfData)
 
 module.exports = authRouter
