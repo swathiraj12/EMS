@@ -16,17 +16,17 @@ const NavBar = ({ children }) => {
     
                     <ul>
                         <li className='p-3 m-3'>
-                            <NavLink to='/' className={({ isActive }) => `p-3 text-center ${isActive ? 'active-link' : ''}`}>Dashboard</NavLink>
+                            <NavLink to='/' className={({ isActive }) => `p-3 text-center ${isActive ? 'active-link' : ''}`}> <span><i class="fa-solid fa-house"></i></span> Dashboard</NavLink>
                         </li>
     
                         {/* Admin only links */}
                         {user?.role === 'Admin' && (
                             <>
                                 <li className='p-3 m-3'>
-                                    <NavLink to='/addemp' className={({ isActive }) => `p-3 text-center ${isActive ? 'active-link' : ''}`}>Add Employee</NavLink>
+                                    <NavLink to='/addemp' className={({ isActive }) => `p-3 text-center ${isActive ? 'active-link' : ''}`}> <span><i class="fa-solid fa-user"></i></span> Add Employee</NavLink>
                                 </li>
                                 <li className='p-3 m-3'>
-                                    <NavLink to='/employee' className={({ isActive }) => `p-3 text-center ${isActive ? 'active-link' : ''}`}>Employee List</NavLink>
+                                    <NavLink to='/employee' className={({ isActive }) => `p-3 text-center ${isActive ? 'active-link' : ''}`}> <span><i class="fa-solid fa-users-line"></i></span> Employee List</NavLink>
                                 </li>
                             </>
                         )}
@@ -42,7 +42,7 @@ const NavBar = ({ children }) => {
                     </ul>
                     {/* Common links */}
                     <div className='btn-sec d-flex justify-content-center'>
-                        <button className='btn w-75 mb-5 signoutBtn' onClick={signout}>Sign out</button>
+                        <button className='btn w-75 mb-5 signoutBtn' onClick={signout}> <span><i class="fa-solid fa-right-from-bracket"></i></span> Sign out</button>
                     </div>
                 </div>
     

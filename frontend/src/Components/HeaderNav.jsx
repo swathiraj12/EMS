@@ -65,11 +65,11 @@ const HeaderNav = () => {
                             </button>
                             <ul className="dropdown-menu" aria-labelledby="settingsDropdown">
 
-                                <li className="dropdown-item" onClick={() => setProfileShow(true)}>My Profile</li>
+                                <li className="dropdown-item" onClick={() => setProfileShow(true)}> <span><i class="fa-solid fa-id-badge"></i></span> My Profile</li>
                                 
-                                <li className="dropdown-item" onClick={() => setChangePwd(true)}>Change Password</li>
+                                <li className="dropdown-item" onClick={() => setChangePwd(true)}> <span><i class="fa-solid fa-lock"></i></span> Change Password</li>
                                 
-                                <li className="dropdown-item" onClick={signout}>Sign out</li>
+                                <li className="dropdown-item" onClick={signout}> <span><i class="fa-solid fa-right-from-bracket"></i></span> Sign out</li>
 
                             </ul>
                         </div>
