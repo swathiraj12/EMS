@@ -51,6 +51,12 @@
 .sign-in-form p a{
     color: #9370DB;
 }
+.sign-in-form h6{
+    color: #9370DB;
+    text-transform: lowercase;
+    text-decoration: underline;
+    cursor: pointer;
+}
 .sign-in-img{
     border-radius: 8px;
 }

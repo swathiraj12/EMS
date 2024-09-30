@@ -50,7 +50,13 @@ const Home = () => {
                 </h2>
               </div>
               <h5 className='empCountCardName mt-3'>Total Employees</h5>
-              <h6 className="empCardMoreInfo mt-3"><NavLink to='/employee'>More Info</NavLink></h6>
+              {
+                user?.role === 'Admin' ? (
+                  <h6 className="empCardMoreInfo mt-3"><NavLink to='/employee'>More Info</NavLink></h6>
+                ) : ('')
+              }
+              
+              
             </div>
           </div>
         </div>

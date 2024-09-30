@@ -1,16 +1,20 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAuth } from '../Context/ContextAuth'
 import { useLocation } from 'react-router-dom'
 import profilePic from '../Assets/Images/profile1.jpg'
 import '../Assets/CSS/HeaderNav.css'
 import Profileshow from './Profileshow'
-import ProfileEdit from './ProfileEdit'
+import ChangePwd from './ChangePwd'
+import axios from 'axios'
 
 const HeaderNav = () => {
+    const [users, setUsers] = useState([])
+
     const { user, signout } = useAuth()
     const location = useLocation()
+
     const [profileShow, setProfileShow] = React.useState(false);
-    const [profileEdit, setProfileEdit] = React.useState(false);
+    const [changePwd, setChangePwd] = React.useState(false);
 
     const getPageName = () => {
         const path = location.pathname
@@ -27,6 +31,24 @@ const HeaderNav = () => {
                 return 'EDIT EMPLOYEE DETAILS'
         }
     }
+
+    const fetchUserDetails = async () => {
+        try {
+            const response = await axios.get('http://localhost:4000/userget')
+            if (response.data && response.data.userDetails) {
+                setUsers(response.data.userDetails)
+                console.log('Fetched user details:', response.data.userDetails)
+            } else {
+                console.error('No user details found in response')
+            }
+
+        } catch (error) {
+            console.log('Error in fetching the users', error);
+        }
+    }
+    useEffect(() => {
+        fetchUserDetails()
+    }, [])
     return (
         <header className='container-fluid admin-header p-3'>
             <div className="row">
@@ -45,7 +67,7 @@ const HeaderNav = () => {
 
                                 <li className="dropdown-item" onClick={() => setProfileShow(true)}>My Profile</li>
                                 
-                                <li className="dropdown-item" onClick={() => setProfileEdit(true)}>Edit Profile</li>
+                                <li className="dropdown-item" onClick={() => setChangePwd(true)}>Change Password</li>
                                 
                                 <li className="dropdown-item" onClick={signout}>Sign out</li>
 
@@ -59,12 +81,16 @@ const HeaderNav = () => {
 
                         {/* User's Profile Picture */}
                         <div className="user-profile-picture ms-3">
-                            <img
-                                src={user?.picture || profilePic}
-                                alt={`${user?.name}'s profile`}
-                                className="img-fluid rounded-circle"
-                                style={{ width: '45px', height: '45px' }}
-                            />
+                            {
+                                users.map((user) => (
+                                    <img
+                                        src={user?.picture.imageUrl || profilePic}
+                                        alt={`${user?.name || user}'s profile`}
+                                        className="img-fluid rounded-circle"
+                                        style={{ width: '45px', height: '45px' }}
+                                    />
+                                ))
+                            }
                         </div>
                     </div>
                 </div>
@@ -75,9 +101,9 @@ const HeaderNav = () => {
                 onHide={() => setProfileShow(false)}
             />
 
-            <ProfileEdit
-                show={profileEdit}
-                onHide={() => setProfileEdit(false)}
+            <ChangePwd
+                show={changePwd}
+                onHide={() => setChangePwd(false)}
             />
         </header>
     )

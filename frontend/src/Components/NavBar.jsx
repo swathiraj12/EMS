@@ -35,7 +35,7 @@ const NavBar = ({ children }) => {
                         {user?.role === 'Employee' && (
                             <>
                                 <li className='p-3 m-3'>
-                                    <NavLink to='/' className={({ isActive }) => `p-3 text-center ${isActive ? 'active-link' : ''}`}>Home</NavLink>
+                                    <NavLink to='/empdetails/:id' className={({ isActive }) => `p-3 text-center ${isActive ? 'active-link' : ''}`}>My Details</NavLink>
                                 </li>
                             </>
                         )}

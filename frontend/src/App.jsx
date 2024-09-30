@@ -10,6 +10,7 @@ import NavBar from './Components/NavBar';
 import AddEmployee from './Components/AddEmployee';
 import ViewEmployee from './Components/ViewEmployee';
 import EditEmployee from './Components/EditEmployee';
+import EmpDetailsView from './Components/EmpDetailsView';
 
 const App = () => {
   const location = useLocation()
@@ -32,6 +33,7 @@ const App = () => {
             <Route path='/addemp' element={<AddEmployee />} />
             <Route path='/employee' element={<ViewEmployee />} />
             <Route path='/editemp/:id' element={<EditEmployee />} />
+            <Route path='/empdetails/:id' element={<EmpDetailsView />} />
           </Route>
 
           <Route path='/signin' element={<SignIn />} />

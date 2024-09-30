@@ -18,7 +18,7 @@ const GetUserDetails = async (req, res) => {
         const { email } = req.body
         const user = await empModel.findOne({ email })
         if (!user) {
-            return res.status(404).json({Message: 'User not found'})
+            return res.status(404).json({ Message: 'User not found' })
         }
         const userDetails = {
             name: user.name,
@@ -27,7 +27,7 @@ const GetUserDetails = async (req, res) => {
             picture: user.picture.imageUrl,
             designation: user.designation
         }
-        return res.status(200).json({Message: 'User details:', userDetails})
+        return res.status(200).json({ Message: 'User details:', userDetails })
     } catch (error) {
         console.log(error);
         return res.status(500).json({ Message: 'Internal error in fetching User details', error })
@@ -40,23 +40,23 @@ const Signup = async (req, res) => {
 
         const existUser = await authModel.findOne({ email })
         if (existUser) {
-            return res.status(400).json({Message: 'User already exists, Please sign-in'})
+            return res.status(400).json({ Message: 'User already exists, Please sign-in' })
         }
 
         if (role === 'Employee') {
             var existEmp = await empModel.findOne({ email })
             console.log(existEmp);
             if (!existEmp) {
-                return res.status(404).json({Message: "Email dosen't found in employees list"})
+                return res.status(404).json({ Message: "Email dosen't found in employees list" })
             }
         }
-        
+
         const existAdmin = await authModel.findOne({ role: 'Admin' })
         console.log(existAdmin);
-        
+
         if (role === 'Admin') {
             if (existAdmin) {
-                return res.status(409).json({Message: 'admin already exist. access denied'})
+                return res.status(409).json({ Message: 'admin already exist. access denied' })
             }
         }
         const otp = otpGen.generate(4, { lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false })
@@ -65,9 +65,9 @@ const Signup = async (req, res) => {
         const mailOption = {
             to: email,
             subject: 'Verification for Signup',
-            html: `<h1>${otp}<h1/>`            
+            html: `<h1>${otp}<h1/>`
         }
-        await transporter.sendMail(mailOption)        
+        await transporter.sendMail(mailOption)
 
         if (password !== confirmPwd) {
             console.log('Password do not match');
@@ -81,9 +81,9 @@ const Signup = async (req, res) => {
             password: hashPwd,
             role,
             otp: otp,
-            otpExpired: Date.now() + 60*1000*10
+            otpExpired: Date.now() + 60 * 1000 * 10
         })
-        return res.status(201).json({Message: 'User Signed up successfully', user})
+        return res.status(201).json({ Message: 'User Signed up successfully', user })
     } catch (error) {
         console.log(error);
         return res.status(500).json({ Message: 'Internal error in User Sign up', error })
@@ -96,21 +96,21 @@ const verifyOTP = async (req, res) => {
 
         const existUser = await authModel.findOne({ email })
         if (!existUser) {
-            return res.status(404).json({ Message: 'User does not exist, Please signup'})
+            return res.status(404).json({ Message: 'User does not exist, Please signup' })
         }
         console.log(`Received OTP for ${email}: ${otp}`);
         console.log(`Stored OTP for ${email}: ${existUser.otp}`);
         console.log(otp === existUser.otp);
-        
+
         if (otp !== existUser.otp || existUser.otpExpired < Date.now()) {
-            return res.status(409).json({Message:'Invalid OTP or OTP has expired'})
+            return res.status(409).json({ Message: 'Invalid OTP or OTP has expired' })
         }
         existUser.otp = null
         existUser.otpExpired = null
         existUser.isVerified = true
         await existUser.save()
 
-        return res.status(200).json({Message:'User verified successfully'})
+        return res.status(200).json({ Message: 'User verified successfully' })
     } catch (error) {
         console.log(error);
         return res.status(500).json({ Message: 'Internal error in User verification', error })
@@ -119,28 +119,29 @@ const verifyOTP = async (req, res) => {
 //signin
 const Signin = async (req, res) => {
     try {
-        const { email, password } = req.body
-        
+        const { name, email, password } = req.body
+
         const existUser = await authModel.findOne({ email })
         if (!existUser) {
-            return res.status(404).json({Message: 'User does not exist, Please signup'})
+            return res.status(404).json({ Message: 'User does not exist, Please signup' })
         }
 
         const decodedPwd = await bcrypt.compare(password, existUser.password)
         if (!decodedPwd) {
-            return res.status(409).json({Message: 'Incorrect password'})
+            return res.status(409).json({ Message: 'Incorrect password' })
         }
 
         const token = jwt.sign({
             id: existUser._id,
             email: existUser.email,
-            role: existUser.role
+            role: existUser.role,
+            name: existUser.name
         },
-            'secret-key', {expiresIn: '1h'}
+            'secret-key', { expiresIn: '1h' }
         )
         console.log('Name:', token.name);
-        
-        return res.status(200).json({Message: 'User signed in successfully', token})
+
+        return res.status(200).json({ Message: 'User signed in successfully', token })
     } catch (error) {
         console.log(error);
         return res.status(500).json({ Message: 'Internal error in User Sign in', error })
@@ -151,20 +152,25 @@ const UserPwdChange = async (req, res) => {
     try {
         const { id } = req.params
         const { oldPwd, newPwd } = req.body
-        
+
+        // console.log(req.params)
+        // console.log(req.body)
+
         const user = await authModel.findById(id)
 
         if (!user) return res.status(404).json({ Message: 'User not found' })
-        
+        console.log(oldPwd, user.password);
+
         const isPwdMatch = await bcrypt.compare(oldPwd, user.password)
+        console.log(isPwdMatch);
 
         if (!isPwdMatch) return res.status(400).json({ Message: 'Password does not match. Please enter correct one.' })
-        
+
         const hashedPwd = await bcrypt.hash(newPwd, 10)
 
         await authModel.findByIdAndUpdate(id, { password: hashedPwd })
-        
-        return res.status(200).json({Message: 'Password changed'})
+
+        return res.status(200).json({ Message: 'Password changed' })
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: "Internal error in changing password" })
@@ -174,7 +180,7 @@ const UserPwdChange = async (req, res) => {
 const UserForgetPwd = async (req, res) => {
     try {
         const { email } = req.body
-        
+
         const existUser = await authModel.findOne({ email })
         if (!existUser) {
             return res.status(404).json({ Message: 'User not found' })
@@ -194,67 +200,31 @@ const UserForgetPwd = async (req, res) => {
             html: `<h1>${otp}<h1/>`
         }
         await transporter.sendMail(mailOption)
-        return res.status(200).json({Message: 'OTP sent for Password reset'})
+        return res.status(200).json({ Message: 'OTP sent for Password reset' })
     } catch (error) {
         console.log(error);
-        return res.status(500).json({Message: 'Internal error in sending OTP'})
+        return res.status(500).json({ Message: 'Internal error in sending OTP' })
     }
 }
 //Resetting Password
 const UserResetPwd = async (req, res) => {
     try {
         const { email, newPwd } = req.body
-        
+
         const user = await authModel.findOne({ email })
-        
+
         if (!user) {
-            return res.status(404).json({Message: 'User not found'})
+            return res.status(404).json({ Message: 'User not found' })
         }
 
         user.password = await bcrypt.hash(newPwd, 10)
         await user.save()
-        return res.status(200).json({Message: 'Password changed'})
+        return res.status(200).json({ Message: 'Password changed' })
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: "Internal error in changing password" })
     }
 }
-//Edit profile in admin page
-// const EditProfData = async (req, res) => {
-//     try {
-//         const { name, email } = req.body
-
-//         const user = authModel.findOne({ email })
-//         if (!user) {
-//             return res.status(404).json({Message: 'User not found'})
-//         }
-
-//         const employee = await empModel.findOne({ email })
-//         if (employee) {
-//             employee.name = name
-//             await employee.save()
-//         }
-
-//         const token = jwt.sign(
-//             {
-//             employee: employee ? employee : null,
-//             id: user._id,
-//             name: name,
-//             email: user.email,
-//             role: user.role,
-//             password: user.password
-//             },
-//             'secret-key',
-//             { expiresIn: '2h' }
-//         )
-//         user.name = name
-//         // await user.save()
-//         return res.status(200).json({Message: 'Employee details edited successfully',token})
-//     } catch (error) {
-//         console.log(error)
-//         return res.status(500).json({ message: "Internal error in editing employee details" })
-//     }
-// }
 
 module.exports = {
     Signup,
@@ -264,5 +234,4 @@ module.exports = {
     UserForgetPwd,
     UserResetPwd,
     GetUserDetails,
-    // EditProfData
 }

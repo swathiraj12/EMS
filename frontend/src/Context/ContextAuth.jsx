@@ -23,8 +23,7 @@ export const AuthProvider = ({ children }) => {
             id: decodedToken.id,
             role: decodedToken.role,
             name: decodedToken.name,
-            email: decodedToken.email,
-            password: decodedToken.password
+            email: decodedToken.email
         })
     }
 
