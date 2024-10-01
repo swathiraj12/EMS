@@ -44,3 +44,22 @@ ul .dropdown-item:focus, ul .dropdown-item:hover, ul .dropdown-item:active{
 .dropdownSetting .dropdown-toggle::after {
     display: none;
 }
+
+@media (max-width: 768px){
+    .admin-header{
+        margin-bottom: 50px;
+    }
+    .page-name{
+        font-size: 32px;
+    }
+}
+@media (max-width: 576px){
+    .admin-header {
+        margin-bottom: 100px;
+    }
+    .page-name {
+        font-size: 25px;
+    }
+}
+
+

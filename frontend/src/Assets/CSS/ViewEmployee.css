@@ -48,3 +48,11 @@
 .emp-nav .nav-btn i:hover{
     color: #694F8E;
 }
+
+@media (max-width: 576px) {
+    .emp-card{
+        max-width: 310px;
+        display: flex;
+        flex-direction: column;
+    }
+}

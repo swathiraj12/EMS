@@ -23,3 +23,9 @@
     color: #694F8E;
     text-decoration: underline;
 }
+
+@media (max-width: 576px){
+    .dashBannerImg{
+        margin-top: 50px;
+    }
+}

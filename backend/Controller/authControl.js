@@ -15,8 +15,9 @@ const transporter = nodeMailer.createTransport({
 //get user details from employee model
 const GetUserDetails = async (req, res) => {
     try {
-        const { email } = req.body
+        const { email } = req.params
         const user = await empModel.findOne({ email })
+        
         if (!user) {
             return res.status(404).json({ Message: 'User not found' })
         }

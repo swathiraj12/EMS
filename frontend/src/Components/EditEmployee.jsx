@@ -91,33 +91,39 @@ const EditEmployee = () => {
                     <legend>
                         <h3 className='mt-3 mb-3'>Personal Details</h3>
                     </legend>
-                    <div className="row mt-3">
+                    <div className="row gy-2 mt-3">
                         <div className="col-md-6">
-                            <input type="text" className="form-control" placeholder="Name" value={user.name} name='name' onChange={handleInputChange} />
+                            <label className='form-label profViewLabel'>Name :</label>
+                            <input type="text" className="form-control" value={user.name} name='name' onChange={handleInputChange} />
                         </div>
 
                         <div className="col-md-6">
-                            <input type="text" className="form-control" placeholder="Serial Number" value={user.serialNo} name='serialNo' onChange={handleInputChange} />
-                        </div>
-                    </div>
-
-                    <div className="row mt-3">
-                        <div className="col-md-6">
-                            <input type="number" className="form-control" placeholder="Contact Number" value={user.phnNum} name='phnNum' onChange={handleInputChange} />
-                        </div>
-
-                        <div className="col-md-6">
-                            <input type="number" className="form-control" placeholder="Emergency Contact Number" value={user.emgPhnNo} name='emgPhnNo' onChange={handleInputChange} />
+                            <label className='form-label profViewLabel'>Serial Number :</label>
+                            <input type="text" className="form-control" value={user.serialNo} name='serialNo' onChange={handleInputChange} />
                         </div>
                     </div>
 
-                    <div className="row mt-3">
+                    <div className="row gy-2 mt-3">
                         <div className="col-md-6">
-                            <input type="email" className="form-control" placeholder="Email" value={user.email} name='email' onChange={handleInputChange} />
+                            <label className='form-label profViewLabel'>Contact Number :</label>
+                            <input type="number" className="form-control" value={user.phnNum} name='phnNum' onChange={handleInputChange} />
                         </div>
 
                         <div className="col-md-6">
-                            <input type="text" className="form-control" placeholder="Blood Group" value={user.bloodGrp} name='bloodGrp' onChange={handleInputChange} />
+                            <label className='form-label profViewLabel'>Emergency Contact Number :</label>
+                            <input type="number" className="form-control" value={user.emgPhnNo} name='emgPhnNo' onChange={handleInputChange} />
+                        </div>
+                    </div>
+
+                    <div className="row gy-2 mt-3">
+                        <div className="col-md-6">
+                            <label className='form-label profViewLabel'>Email :</label>
+                            <input type="email" className="form-control" value={user.email} name='email' onChange={handleInputChange} />
+                        </div>
+
+                        <div className="col-md-6">
+                            <label className='form-label profViewLabel'>Blood Group :</label>
+                            <input type="text" className="form-control" value={user.bloodGrp} name='bloodGrp' onChange={handleInputChange} />
                         </div>
                     </div>
                 </fieldset>
@@ -129,23 +135,27 @@ const EditEmployee = () => {
 
                     <div className="row mt-3">
                         <div className="col-md-12">
-                            <input type="text" className="form-control" placeholder="Address Line 1" value={user.address.address1} name='address1' onChange={handleAddressInputChange} />
+                            <label className='form-label profViewLabel'>Address Line 1 :</label>
+                            <input type="text" className="form-control" value={user.address.address1} name='address1' onChange={handleAddressInputChange} />
                         </div>
                     </div>
 
                     <div className="row mt-3">
                         <div className="col-md-12">
-                            <input type="text" className="form-control" placeholder="Address Line 2" value={user.address.address2} name='address2' onChange={handleAddressInputChange} />
+                            <label className='form-label profViewLabel'>Address Line 2 :</label>
+                            <input type="text" className="form-control" value={user.address.address2} name='address2' onChange={handleAddressInputChange} />
                         </div>
                     </div>
 
-                    <div className="row mt-3">
+                    <div className="row gy-2 mt-3">
                         <div className="col-md-6">
-                            <input type="text" className="form-control" placeholder="State" value={user.address.state} name='state' onChange={handleAddressInputChange} />
+                            <label className='form-label profViewLabel'>State :</label>
+                            <input type="text" className="form-control" value={user.address.state} name='state' onChange={handleAddressInputChange} />
                         </div>
 
                         <div className="col-md-6">
-                            <input type="number" className="form-control" placeholder="Pincode" value={user.address.pincode} name='pincode' onChange={handleAddressInputChange} />
+                            <label className='form-label profViewLabel'>Pincode :</label>
+                            <input type="number" className="form-control" value={user.address.pincode} name='pincode' onChange={handleAddressInputChange} />
                         </div>
                     </div>
                 </fieldset>
@@ -155,18 +165,21 @@ const EditEmployee = () => {
                         <h3 className='mt-3 mb-3'>Official Details</h3>
                     </legend>
 
-                    <div className="row mt-3">
+                    <div className="row gy-2 mt-3">
                         <div className="col-md-6">
-                            <input type="text" className="form-control" placeholder="Date of Joining" value={user.doj} name='doj' onChange={handleInputChange} />
+                            <label className='form-label profViewLabel'>Date of Joining :</label>
+                            <input type="text" className="form-control" value={user.doj} name='doj' onChange={handleInputChange} />
                         </div>
 
                         <div className="col-md-6">
-                            <input type="text" className="form-control" placeholder="Designation" value={user.designation} name='designation' onChange={handleInputChange} />
+                            <label className='form-label profViewLabel'>Designation :</label>
+                            <input type="text" className="form-control" value={user.designation} name='designation' onChange={handleInputChange} />
                         </div>
                     </div>
 
-                    <div className="row mt-3">
+                    <div className="row gy-2 mt-3">
                         <div className="col-md-6">
+                            <label className='form-label profViewLabel'>Role :</label>
                             <select readOnly className="form-select"
                                 value={user.role}
                                 name='role'
@@ -178,7 +191,8 @@ const EditEmployee = () => {
                         </div>
 
                         <div className="col-md-6">
-                            <input type="number" className="form-control" placeholder="Salary" value={user.salary} name='salary' onChange={handleInputChange} />
+                            <label className='form-label profViewLabel'>Salary :</label>
+                            <input type="number" className="form-control" value={user.salary} name='salary' onChange={handleInputChange} />
                         </div>
                     </div>
                 </fieldset>
@@ -214,7 +228,7 @@ const EditEmployee = () => {
                 </fieldset>
 
                 <div className='d-flex justify-content-center mt-5 mb-3'>
-                    <button className='btn edit-btn w-25'>Edit Employee</button>
+                    <button className='btn edit-btn'>Edit Employee</button>
                 </div>
             </form>
         </div>

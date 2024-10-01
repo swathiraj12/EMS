@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Modal from 'react-bootstrap/Modal';
 import myProfilePic from '../Assets/Images/profile1.jpg'
 import { useAuth } from '../Context/ContextAuth';
@@ -7,12 +7,32 @@ import axios from 'axios'
 
 const ChangePwd = (props) => {
     const { user } = useAuth()
-    // console.log('id:', user.id);
     
     const [changePwdMode, setChangePwdMode] = useState(false)
     const [oldPwd, setOldPwd] = useState('')
     const [newPwd, setNewPwd] = useState('')
     const [confirmPwd, setConfirmPwd] = useState('')
+
+    const [users, setUsers] = useState({})
+
+    const fetchUserDetails = async () => {
+        try {
+
+            const response = await axios.get(`http://localhost:4000/userget/${user.email}`)
+            if (response.data && response.data.userDetails) {
+                setUsers(response.data.userDetails)
+                // console.log('Fetched user details:', response.data.userDetails)
+            } else {
+                console.error('No user details found in response')
+            }
+
+        } catch (error) {
+            console.log('Error in fetching the users', error);
+        }
+    }
+    useEffect(() => {
+        fetchUserDetails()
+    }, [])
 
     const handlePwdChange = async () => {
         if (newPwd !== confirmPwd) {
@@ -53,7 +73,7 @@ const ChangePwd = (props) => {
                         <div className="row justify-content-center">
                             <div className="d-flex flex-column align-items-center">
                                 <h2 className="text-center mb-2 empCardTitle">Change Password</h2>
-                                <img src={myProfilePic}
+                                <img src={users?.picture || myProfilePic}
                                     className="img-fluid rounded-circle"
                                     style={{
                                         height: "150px",

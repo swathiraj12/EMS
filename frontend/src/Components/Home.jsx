@@ -9,7 +9,7 @@ const Home = () => {
   const [empTotalCount, setEmpTotalCount] = useState(0)
 
   const { user } = useAuth()
-  console.log(user);
+  // console.log(user);
 
   // Getting total employee count
   const fetchEmployees = async () => {
@@ -31,10 +31,10 @@ const Home = () => {
   return (
     <div className="container-fluid">
       {/* Home banner image */}
-        <div className="row">
-          <div className="col-lg-12 mt-5 d-flex justify-content-center">
-            <img src={dashboardImg} className='img-fluid rounded-4 dashBannerImg' alt="" />
-          </div>
+      <div className="row">
+        <div className="col-lg-12 mt-5 d-flex justify-content-center">
+          <img src={dashboardImg} className='img-fluid rounded-4 dashBannerImg' alt="" />
+        </div>
       </div>
       {/* Home page cards */}
       <div className="row mt-5 justify-content-center">
@@ -46,7 +46,7 @@ const Home = () => {
                   {empTotalCount > 0 ? empTotalCount : 'NIL'}
                 </h2>
                 <h2 className='mx-3'>
-                  <i class="fa-solid fa-users" style={{ color: '#694f8e'}}></i>
+                  <i className="fa-solid fa-users" style={{ color: '#694f8e' }}></i>
                 </h2>
               </div>
               <h5 className='empCountCardName mt-3'>Total Employees</h5>
@@ -55,14 +55,14 @@ const Home = () => {
                   <h6 className="empCardMoreInfo mt-3"><NavLink to='/employee'>More Info</NavLink></h6>
                 ) : ('')
               }
-              
-              
+
+
             </div>
           </div>
         </div>
       </div>
 
-      </div>
+    </div>
   )
 }
 

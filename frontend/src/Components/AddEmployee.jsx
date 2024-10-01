@@ -84,7 +84,7 @@ const AddEmployee = () => {
                     <legend>
                         <h3 className='mt-3 mb-3'>Personal Details</h3>
                     </legend>
-                    <div className="row mt-3">
+                    <div className="row gy-2 mt-3">
                         <div className="col-md-6">
                             <input type="text" className="form-control" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
                         </div>
@@ -94,7 +94,7 @@ const AddEmployee = () => {
                         </div>
                     </div>
 
-                    <div className="row mt-3">
+                    <div className="row gy-2 mt-3">
                         <div className="col-md-6">
                             <input type="number" className="form-control" placeholder="Contact Number" value={phnNum} onChange={(e) => setPhnNum(e.target.value)} />
                         </div>
@@ -104,7 +104,7 @@ const AddEmployee = () => {
                         </div>
                     </div>
 
-                    <div className="row mt-3">
+                    <div className="row gy-2 mt-3">
                         <div className="col-md-6">
                             <input type="email" className="form-control" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
                         </div>
@@ -132,7 +132,7 @@ const AddEmployee = () => {
                         </div>
                     </div>
 
-                    <div className="row mt-3">
+                    <div className="row gy-2 mt-3">
                         <div className="col-md-6">
                             <input type="text" className="form-control" placeholder="State" value={state} onChange={(e) => setState(e.target.value)} />
                         </div>
@@ -148,7 +148,7 @@ const AddEmployee = () => {
                         <h3 className='mt-3 mb-3'>Official Details</h3>
                     </legend>
 
-                    <div className="row mt-3">
+                    <div className="row gy-2 mt-3">
                         <div className="col-md-6">
                             <input type="text" className="form-control" placeholder="Date of Joining" value={doj} onChange={(e) => setDoj(e.target.value)} />
                         </div>
@@ -158,7 +158,7 @@ const AddEmployee = () => {
                         </div>
                     </div>
 
-                    <div className="row mt-3">
+                    <div className="row gy-2 mt-3">
                         <div className="col-md-6">
                             <select className="form-select"
                                 value={role}
@@ -188,7 +188,7 @@ const AddEmployee = () => {
                 </fieldset>
 
                 <div className='d-flex justify-content-center mt-5 mb-3'>
-                    <button className='btn add-btn w-25'>Add Employee</button>
+                    <button className='btn add-btn'>Add Employee</button>
                 </div>
             </form>
         </div>

@@ -32,7 +32,7 @@ const SignIn = () => {
             authContext.signin(token)
             localStorage.setItem('token', token)
 
-            alert('Signed in successfully!');
+            // alert('Signed in successfully!');
 
             setEmail('');
             setPassword('');
@@ -50,45 +50,48 @@ const SignIn = () => {
         <>
             <div className='d-flex justify-content-center'>
                 <div className='container sign-in d-flex justify-content-center p-5 my-5 bg-light'>
-                    <div className="col-6 p-3">
-                        <form className='sign-in-form' onSubmit={handleSignIn}>
-                            <h1 className='text-center'>swathi</h1>
-                            <h2 className='text-center'>Sign In</h2>
-                            <p className='text-center'>"Access your account to continue"</p>
+                    <div className="row">
+                        <div className="col-lg-6 col-md-12 p-3">
+                            <form className='sign-in-form' onSubmit={handleSignIn}>
+                                <h1 className='text-center'>swathi</h1>
+                                <h2 className='text-center'>Sign In</h2>
+                                <p className='text-center'>"Access your account to continue"</p>
 
-                            <label className='form-label mt-3 mb-3'>Email:</label>
-                            <input type="email"
-                                className='form-control'
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                required
-                            />
+                                <label className='form-label mt-3 mb-3'>Email:</label>
+                                <input type="email"
+                                    className='form-control'
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                />
 
-                            <label className='form-label mt-3 mb-3'>Password:</label>
-                            <input type="password"
-                                className='form-control'
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                required
-                            />
+                                <label className='form-label mt-3 mb-3'>Password:</label>
+                                <input type="password"
+                                    className='form-control'
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                />
 
-                            <h6 className='text-end d-block mt-1 mb-3' onClick={() => setForgetPwd(true)}>Forgot Password?</h6>
+                                <h6 className='text-end d-block mt-1 mb-3' onClick={() => setForgetPwd(true)}>Forgot Password?</h6>
 
-                            {errorMessage && (
-                                <div className="alert alert-danger mt-3 mb-3" role="alert">
-                                    {errorMessage}
+                                {errorMessage && (
+                                    <div className="alert alert-danger mt-3 mb-3" role="alert">
+                                        {errorMessage}
+                                    </div>
+                                )}
+
+                                <div className='d-flex flex-column justify-content-center mt-3'>
+                                    <button type="submit" className='signInBtn mt-3 mb-3 '>Sign In</button>
+
+                                    <p className='mt-3'>don't have an account? <a href="/signup">Sign up Now</a></p>
                                 </div>
-                            )}
+                            </form>
+                        </div>
 
-                            <div className='d-flex flex-column justify-content-center mt-3'>
-                                <button type="submit" className='signInBtn mt-3 mb-3 w-50'>Sign In</button>
-
-                                <p className='mt-3'>don't have an account? <a href="/signup">Sign up Now</a></p>
-                            </div>
-                        </form>
-                    </div>
-                    <div className="col-6">
-                        <img src={signinImg} alt="" className='img-fluid sign-in-img' />
+                        <div className="col-lg-6 col-md-12">
+                            <img src={signinImg} alt="" className='img-fluid sign-in-img' />
+                        </div>
                     </div>
                 </div>
             </div>

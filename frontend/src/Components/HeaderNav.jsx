@@ -8,7 +8,7 @@ import ChangePwd from './ChangePwd'
 import axios from 'axios'
 
 const HeaderNav = () => {
-    const [users, setUsers] = useState([])
+    const [users, setUsers] = useState({})
 
     const { user, signout } = useAuth()
     const location = useLocation()
@@ -25,19 +25,24 @@ const HeaderNav = () => {
                 return 'ADD EMPLOYEE'
             case '/employee':
                 return 'EMPLOYEE LIST'
-            // case '/editemp':
-            //     return 'EDIT EMPLOYEE DETAILS'
+            case '/admindetails':
+                return 'ADD MY DETAILS'
+            case '/admin':
+                return 'MY PROFILE'
+            case '/empdetails/:id':
+                return 'MY PROFILE DETAILS'
             default:
                 return 'EDIT EMPLOYEE DETAILS'
         }
-    }
+    } 
 
     const fetchUserDetails = async () => {
         try {
-            const response = await axios.get('http://localhost:4000/userget')
+            
+            const response = await axios.get(`http://localhost:4000/userget/${user.email}`)
             if (response.data && response.data.userDetails) {
                 setUsers(response.data.userDetails)
-                console.log('Fetched user details:', response.data.userDetails)
+                // console.log('Fetched user details:', response.data.userDetails)
             } else {
                 console.error('No user details found in response')
             }
@@ -50,26 +55,31 @@ const HeaderNav = () => {
         fetchUserDetails()
     }, [])
     return (
-        <header className='container-fluid admin-header p-3'>
+        <header className='container admin-header p-3'>
             <div className="row">
 
-                <div className="col-lg-6 align-content-center">
+                <div className="col-md-6 col-12 align-content-center">
                     <h3 className='page-name'>{getPageName()}</h3>
                 </div>
 
-                <div className="col-lg-6">
-                    <div className="user-info d-flex justify-content-end">
+                <div className="col-md-6 col-12">
+                    <div className="user-info d-flex justify-content-center">
                         <div className="dropdownSetting me-3">
                             <button className='btn dropdown-toggle' type='button' id='settingsDropdown' data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa-solid fa-gear" style={{ color: '#694f8e' }}></i>
+                                <i className="fa-solid fa-gear" style={{ color: '#694f8e' }}></i>
                             </button>
                             <ul className="dropdown-menu" aria-labelledby="settingsDropdown">
 
-                                <li className="dropdown-item" onClick={() => setProfileShow(true)}> <span><i class="fa-solid fa-id-badge"></i></span> My Profile</li>
-                                
-                                <li className="dropdown-item" onClick={() => setChangePwd(true)}> <span><i class="fa-solid fa-lock"></i></span> Change Password</li>
-                                
-                                <li className="dropdown-item" onClick={signout}> <span><i class="fa-solid fa-right-from-bracket"></i></span> Sign out</li>
+                                {/* Conditionally render "My Profile" only for employees */}
+                                {user?.role === 'Employee' && (
+                                    <li className="dropdown-item" onClick={() => setProfileShow(true)}>
+                                        <span><i className="fa-solid fa-id-badge"></i></span> My Profile
+                                    </li>
+                                )}
+
+                                <li className="dropdown-item" onClick={() => setChangePwd(true)}> <span><i className="fa-solid fa-lock"></i></span> Change Password</li>
+
+                                <li className="dropdown-item" onClick={signout}> <span><i className="fa-solid fa-right-from-bracket"></i></span> Sign out</li>
 
                             </ul>
                         </div>
@@ -80,17 +90,14 @@ const HeaderNav = () => {
                         </div>
 
                         {/* User's Profile Picture */}
-                        <div className="user-profile-picture ms-3">
-                            {
-                                users.map((user) => (
-                                    <img
-                                        src={user?.picture.imageUrl || profilePic}
-                                        alt={`${user?.name || user}'s profile`}
-                                        className="img-fluid rounded-circle"
-                                        style={{ width: '45px', height: '45px' }}
-                                    />
-                                ))
-                            }
+                        <div className="user-profile-picture ms-2">
+                            <img
+                                src={users?.picture || profilePic}
+                                alt={`${user?.name || user}'s profile`}
+                                className="img-fluid rounded-circle"
+                                style={{ width: '45px', height: '45px' }}
+                            />
+
                         </div>
                     </div>
                 </div>
