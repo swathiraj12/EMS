@@ -65,8 +65,8 @@ const getUsers = async (req, res) => {
 
 const getUserById = async (req, res) => {
     try {
-        const { id } = req.params
-        const users = await empModel.findById(id)
+        const { email } = req.params
+        const users = await empModel.findOne({ email })
         return res.status(200).json({Message: 'User details:', users})
     } catch (error) {
         console.log(error);

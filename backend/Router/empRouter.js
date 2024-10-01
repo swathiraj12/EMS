@@ -6,7 +6,7 @@ empRouter.post('/create', empControl.picUpload.single('picture'), empControl.cre
 
 empRouter.get('/getusers', empControl.getUsers)
 
-empRouter.get('/getuser/:id', empControl.getUserById)
+empRouter.get('/getuser/:email', empControl.getUserById)
 
 empRouter.put('/updateuser/:id', empControl.picUpload.single('picture'), empControl.updateUser)
 

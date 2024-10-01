@@ -37,7 +37,7 @@ const App = () => {
             <Route path='/editemp/:id' element={<EditEmployee />} />
             <Route path='/admindetails' element={<AddAdminDetails />} />
             <Route path='/admin' element={<AdminProfile />} />
-            <Route path='/empdetails/:id' element={<EmployeeProfile />} />
+            <Route path='/empdetails' element={<EmployeeProfile />} />
           </Route>
 
           <Route path='/signin' element={<SignIn />} />
