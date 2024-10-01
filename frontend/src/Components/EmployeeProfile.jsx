@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
 import '../Assets/CSS/ViewEmployee.css'
 import axios from 'axios'
 import { useAuth } from '../Context/ContextAuth'
 
 const EmployeeProfile = () => {
     const {user} = useAuth()
-    const [employee, setEmployee] = useState({})
+    const [employee, setEmployee] = useState([])
     const [loading, setLoading] = useState(true)
+
+    console.log('email:', user.email);
+    
 
     const fetchEmployee = async () => {
 
@@ -40,7 +42,7 @@ const EmployeeProfile = () => {
                             <h6 className="card-title text-center mt-3 mb-5" style={{ textTransform: 'uppercase' }}>{employee.designation}</h6>
 
                             <div className="emp-card-image col-12">
-                                <img src={employee.picture} alt="" className='img-fluid card-img' />
+                                <img src={employee.picture?.imageUrl} alt="" className='img-fluid card-img' />
                             </div>
                         </div>
                         <div className="emp-card-details card-body p-3 md-col-12">
@@ -58,7 +60,8 @@ const EmployeeProfile = () => {
 
                             <h6 className='mt-3' style={{ textTransform: 'capitalize' }}><span>Blood Group:</span> {employee.bloodGrp}</h6>
 
-                            <h6 className='address mt-3'><span>Address:</span> {employee.address},<br /> {employee.address},<br /> {employee.address?.state},<br /> {employee.address?.pincode}</h6>
+                            <h6 className='address mt-3'><span>Address:</span> {employee.address?.address1},
+                            <br /> {employee.address?.address2},<br /> {employee.address?.state},<br /> {employee.address?.pincode}</h6>
 
                             <h6 className='mt-3'><span>Date of Join:</span> {employee.doj}</h6>
 

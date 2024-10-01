@@ -67,7 +67,7 @@ const NavBar = ({ children }) => {
                         {user?.role === 'Employee' && (
                             <>
                                 <li className='p-2 m-1'>
-                                    <NavLink to='/empdetails/:id' className={({ isActive }) => `p-3 text-center ${isActive ? 'active-link' : ''}`}> <span><i className="fa-solid fa-circle-info"></i></span>
+                                    <NavLink to='/empdetails/:email' className={({ isActive }) => `p-3 text-center ${isActive ? 'active-link' : ''}`}> <span><i className="fa-solid fa-circle-info"></i></span>
                                         {!isSmallScreen && <span> My Details</span>}
                                     </NavLink>
                                 </li>

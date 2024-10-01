@@ -69,7 +69,7 @@ const AddAdminDetails = () => {
             setSalary('')
             setPicture('')
 
-            navigate('/employee')
+            navigate('/admin')
 
         } catch (error) {
             console.log('Error in adding the new usre:', error)
