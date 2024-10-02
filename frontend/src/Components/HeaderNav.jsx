@@ -71,11 +71,11 @@ const HeaderNav = () => {
                             <ul className="dropdown-menu" aria-labelledby="settingsDropdown">
 
                                 {/* Conditionally render "My Profile" only for employees */}
-                                {user?.role === 'Employee' && (
+                                {/* {user?.role === 'Employee' && (
                                     <li className="dropdown-item" onClick={() => setProfileShow(true)}>
                                         <span><i className="fa-solid fa-id-badge"></i></span> My Profile
                                     </li>
-                                )}
+                                )} */}
 
                                 <li className="dropdown-item" onClick={() => setChangePwd(true)}> <span><i className="fa-solid fa-lock"></i></span> Change Password</li>
 

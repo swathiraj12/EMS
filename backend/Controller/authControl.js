@@ -17,7 +17,7 @@ const GetUserDetails = async (req, res) => {
     try {
         const { email } = req.params
         const user = await empModel.findOne({ email })
-        
+
         if (!user) {
             return res.status(404).json({ Message: 'User not found' })
         }
@@ -226,7 +226,52 @@ const UserResetPwd = async (req, res) => {
         return res.status(500).json({ message: "Internal error in changing password" })
     }
 }
+// Send email to all employees
+const MailToAll = async (req, res) => {
+    try {
+        const { subject, message } = req.body
+        const employeeEmails = await empModel.find().select('email')
 
+        if (!employeeEmails.length) {
+            return res.status(400).send('No employees found');
+          }
+
+        const mailOptionToall = {
+            from: 'swathijayabalraj@gmail.com',
+            to: employeeEmails.map(e => e.email).join(','),
+            subject,
+            text: `<h1>${message}<h1/>`
+        }
+        const mailsent = transporter.sendMail(mailOptionToall)
+        return res.status(200).json({ Message: 'Email sent to all employees successfully', mailsent })
+    } catch (error) {
+        console.log(error);
+
+        return res.status(500).json({ Message: 'Internal error in sending Email to all employees' })
+    }
+}
+// Send email to individual employee
+const MaitToIndividual = async (req, res) => {
+    try {
+        const { email } = req.params
+        const {subject, message} = req.body
+        const employee = await empModel.findOne({email}).select('email')
+
+        const mailOptionToIndividual = {
+            from: 'swathijayabalraj@gmail.com',
+            to: employee.email,
+            subject,
+            text: `<h1>${message}<h1/>`
+        }
+        const mailsent = transporter.sendMail(mailOptionToIndividual)
+        return res.status(200).json({ Message: 'Email sent to individual employee successfully', mailsent })
+
+    } catch (error) {
+        console.log(error);
+        
+        return res.status(500).json({ Message: 'Internal error in sending Email to individual employee' })
+    }
+}
 module.exports = {
     Signup,
     Signin,
@@ -235,4 +280,6 @@ module.exports = {
     UserForgetPwd,
     UserResetPwd,
     GetUserDetails,
+    MailToAll,
+    MaitToIndividual
 }
