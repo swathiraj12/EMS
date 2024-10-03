@@ -77,7 +77,7 @@ const AddEmployee = () => {
     }
 
     return (
-        <div className='container addemp-form mt-3 mb-3 p-3'>
+        <div className='container addemp-form col-sm-8 mt-3 mb-3 p-3'>
             <h1 className='text-center'>Add Employee Details</h1>
             <form className='mt-3' onSubmit={handleSubmit}>
                 <fieldset>

@@ -31,8 +31,8 @@ const Home = () => {
   return (
     <div className="container-fluid">
       {/* Home banner image */}
-      <div className="row">
-        <div className="col-lg-12 mt-5 d-flex justify-content-center">
+      <div className="row d-flex justify-content-center">
+        <div className="col-lg-12 col-sm-11 mt-5 d-flex justify-content-center">
           <img src={dashboardImg} className='img-fluid rounded-4 dashBannerImg' alt="" />
         </div>
       </div>

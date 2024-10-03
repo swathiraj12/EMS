@@ -240,7 +240,7 @@ const MailToAll = async (req, res) => {
             from: 'swathijayabalraj@gmail.com',
             to: employeeEmails.map(e => e.email).join(','),
             subject,
-            text: `<h1>${message}<h1/>`
+            html: message
         }
         const mailsent = transporter.sendMail(mailOptionToall)
         return res.status(200).json({ Message: 'Email sent to all employees successfully', mailsent })
@@ -248,28 +248,6 @@ const MailToAll = async (req, res) => {
         console.log(error);
 
         return res.status(500).json({ Message: 'Internal error in sending Email to all employees' })
-    }
-}
-// Send email to individual employee
-const MaitToIndividual = async (req, res) => {
-    try {
-        const { email } = req.params
-        const {subject, message} = req.body
-        const employee = await empModel.findOne({email}).select('email')
-
-        const mailOptionToIndividual = {
-            from: 'swathijayabalraj@gmail.com',
-            to: employee.email,
-            subject,
-            text: `<h1>${message}<h1/>`
-        }
-        const mailsent = transporter.sendMail(mailOptionToIndividual)
-        return res.status(200).json({ Message: 'Email sent to individual employee successfully', mailsent })
-
-    } catch (error) {
-        console.log(error);
-        
-        return res.status(500).json({ Message: 'Internal error in sending Email to individual employee' })
     }
 }
 module.exports = {
@@ -280,6 +258,5 @@ module.exports = {
     UserForgetPwd,
     UserResetPwd,
     GetUserDetails,
-    MailToAll,
-    MaitToIndividual
+    MailToAll
 }

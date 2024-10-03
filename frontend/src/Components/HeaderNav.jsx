@@ -3,17 +3,18 @@ import { useAuth } from '../Context/ContextAuth'
 import { useLocation } from 'react-router-dom'
 import profilePic from '../Assets/Images/profile1.jpg'
 import '../Assets/CSS/HeaderNav.css'
-import Profileshow from './Profileshow'
+// import Profileshow from './Profileshow'
 import ChangePwd from './ChangePwd'
 import axios from 'axios'
+import { GiHamburgerMenu } from "react-icons/gi";
 
-const HeaderNav = () => {
+const HeaderNav = ({ handleShowSidebar }) => {
     const [users, setUsers] = useState({})
 
     const { user, signout } = useAuth()
     const location = useLocation()
 
-    const [profileShow, setProfileShow] = React.useState(false);
+    // const [profileShow, setProfileShow] = React.useState(false);
     const [changePwd, setChangePwd] = React.useState(false);
 
     const getPageName = () => {
@@ -24,21 +25,25 @@ const HeaderNav = () => {
             case '/addemp':
                 return 'ADD EMPLOYEE'
             case '/employee':
-                return 'EMPLOYEE LIST'
+                return 'EMPLOYEES LIST'
             case '/admindetails':
                 return 'ADD MY DETAILS'
             case '/admin':
                 return 'MY PROFILE'
             case '/empdetails/:id':
                 return 'MY PROFILE DETAILS'
+            case '/mail-send':
+                return 'MAIL SENDER'
+            case '/indivimail-send/id':
+                return 'INDIVIDUAL MAIL SENDER'
             default:
-                return 'EDIT EMPLOYEE DETAILS'
+                return ''
         }
-    } 
+    }
 
     const fetchUserDetails = async () => {
         try {
-            
+
             const response = await axios.get(`http://localhost:4000/userget/${user.email}`)
             if (response.data && response.data.userDetails) {
                 setUsers(response.data.userDetails)
@@ -54,12 +59,14 @@ const HeaderNav = () => {
     useEffect(() => {
         fetchUserDetails()
     }, [])
+
     return (
         <header className='container admin-header p-3'>
             <div className="row">
 
-                <div className="col-md-6 col-12 align-content-center">
+                <div className="col-md-6 col-12 d-flex align-content-center">
                     <h3 className='page-name'>{getPageName()}</h3>
+                    <div className=' text-end p-3 '><span className='sidebar-icon px-2 rounded-2' onClick={handleShowSidebar}><GiHamburgerMenu /></span></div>
                 </div>
 
                 <div className="col-md-6 col-12">
@@ -103,10 +110,10 @@ const HeaderNav = () => {
                 </div>
             </div>
 
-            <Profileshow
+            {/* <Profileshow
                 show={profileShow}
                 onHide={() => setProfileShow(false)}
-            />
+            /> */}
 
             <ChangePwd
                 show={changePwd}

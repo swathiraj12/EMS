@@ -17,8 +17,5 @@ authRouter.post('/reset-pwd', authControl.UserResetPwd)
 authRouter.get('/userget/:email', authControl.GetUserDetails)
 //Send email to all employees
 authRouter.post('/sendmail-all', authControl.MailToAll)
-// Send email to individual employee
-authRouter.post('/sendmail-indivi/:email', authControl.MaitToIndividual)
-
 
 module.exports = authRouter

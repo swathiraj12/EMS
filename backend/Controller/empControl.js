@@ -3,7 +3,15 @@ const multer = require('multer')
 const path = require('path')
 const fs = require('fs')
 const cloudUpload = require('../Helper/cloudinaryUploader')
+const nodeMailer = require('nodemailer')
 
+const transporter = nodeMailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.sendingEmail,
+        pass: process.env.sendingPass
+    }
+})
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -63,7 +71,7 @@ const getUsers = async (req, res) => {
     }
 }
 
-const getUserById = async (req, res) => {
+const getUserByEmail = async (req, res) => {
     try {
         const { email } = req.params
         const users = await empModel.findOne({ email })
@@ -72,6 +80,18 @@ const getUserById = async (req, res) => {
         console.log(error);
         
         return res.status(500).json({Message: 'Internal server error in fetching the user details', error})
+    }
+}
+
+const getUserById = async (req, res) => {
+    try {
+        const { id } = req.params
+        const users = await empModel.findById(id)
+        return res.status(200).json({ Message: 'User details:', users })
+    } catch (error) {
+        console.log(error);
+
+        return res.status(500).json({ Message: 'Internal server error in fetching the user details', error })
     }
 }
 
@@ -119,4 +139,32 @@ const delUser = async (req, res) => {
         return res.status(500).json({ Message: 'User deletion failed', error })
     }
 }
-module.exports = { picUpload, createUser, getUsers, getUserById, updateUser, delUser }
+
+// Send email to individual employee
+const MaitToIndividual = async (req, res) => {
+    try {
+        const { id } = req.params
+        const { subject, message } = req.body
+
+        const employee = await empModel.findById(id).select('email')
+
+        if (!employee) {
+            return res.status(404).json({ Message: 'Employee not found' });
+        }
+
+        const mailOptionToIndividual = {
+            from: 'swathijayabalraj@gmail.com',
+            to: employee.email,
+            subject,
+            html: `<h1>${message}<h1/>`
+        }
+        const mailsent = transporter.sendMail(mailOptionToIndividual)
+        return res.status(200).json({ Message: 'Email sent to individual employee successfully', mailsent })
+
+    } catch (error) {
+        console.log(error);
+
+        return res.status(500).json({ Message: 'Internal error in sending Email to individual employee' })
+    }
+}
+module.exports = { picUpload, createUser, getUsers, getUserByEmail, getUserById, updateUser, delUser, MaitToIndividual }

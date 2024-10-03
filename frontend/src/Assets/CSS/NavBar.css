@@ -13,6 +13,8 @@
     top: 0;
     left: 0;
     scrollbar-width: none;
+    transition:  all .4s;
+    z-index: 2;
 }
 .main-content {
     background-color: #E6E6FA;
@@ -58,7 +60,6 @@
     background-color: #9370DB;
     color: #fff;
     border: none;
-    padding: 10px 15px;
     cursor: pointer;
     font-size: 16px;
     border-radius: 5px;
@@ -72,7 +73,7 @@
 
 /* Icon-only state for sidebar */
 .sidebar.icon-only{
-    width: 80px;
+    width: 70px;
 }
 .sidebar.icon-only ul li a{
     text-align: center;
@@ -82,7 +83,10 @@
 }
 
 @media (max-width: 576px) {
-    .main-content{
-        margin-left: 70px;
+    .sidebar{
+        transform: translateX(-100%);
     }
+}
+.sidebar-open {
+    transform: translateX(0) !important;
 }

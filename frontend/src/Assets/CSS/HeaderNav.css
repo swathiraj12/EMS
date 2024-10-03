@@ -10,6 +10,9 @@
     font-weight: bold;
     color: #694F8E;
 }
+.sidebar-icon{
+    display: none;
+}
 .welcome-note span{
     font-size: 20px;
     color: #694F8E;
@@ -55,10 +58,17 @@ ul .dropdown-item:focus, ul .dropdown-item:hover, ul .dropdown-item:active{
 }
 @media (max-width: 576px){
     .admin-header {
-        margin-bottom: 100px;
+        margin-bottom: 70px;
     }
     .page-name {
         font-size: 25px;
+    }
+    .sidebar-icon{
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 18px;
+        color: #694F8E;
     }
 }
 

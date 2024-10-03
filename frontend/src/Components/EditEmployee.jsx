@@ -12,8 +12,10 @@ const EditEmployee = () => {
     const navigate = useNavigate()
     //Fetching single user
     const fetchUser = async () => {
+        console.log(id);
+
         try {
-            const response = await axios.get(`http://localhost:4000/getuser/${id}`)
+            const response = await axios.get(`http://localhost:4000/getuserbyid/${id}`)
             const data = response.data.users
             setUser(data)
             console.log(data);
@@ -84,157 +86,160 @@ const EditEmployee = () => {
     }
 
     return (
-        <div className='container editemp-form mt-3 mb-3 p-3'>
-            <h1 className='text-center'>Edit Employee Details</h1>
-            <form className='mt-3' onSubmit={handleSubmit}>
-                <fieldset>
-                    <legend>
-                        <h3 className='mt-3 mb-3'>Personal Details</h3>
-                    </legend>
-                    <div className="row gy-2 mt-3">
-                        <div className="col-md-6">
-                            <label className='form-label profViewLabel'>Name :</label>
-                            <input type="text" className="form-control" value={user.name} name='name' onChange={handleInputChange} />
+        <>
+            <h1 className='page-name text-center mx-5 mt-3 mb-5' style={{textTransform:'uppercase'}}>Edit Employee Details</h1>
+
+            <div className='container editemp-form mt-3 mb-3 p-3'>
+                <h1 className='text-center'>Edit Employee Details</h1>
+                <form className='mt-3' onSubmit={handleSubmit}>
+                    <fieldset>
+                        <legend>
+                            <h3 className='mt-3 mb-3'>Personal Details</h3>
+                        </legend>
+                        <div className="row gy-2 mt-3">
+                            <div className="col-md-6">
+                                <label className='form-label profViewLabel'>Name :</label>
+                                <input type="text" className="form-control" value={user.name} name='name' onChange={handleInputChange} />
+                            </div>
+
+                            <div className="col-md-6">
+                                <label className='form-label profViewLabel'>Serial Number :</label>
+                                <input type="text" className="form-control" value={user.serialNo} name='serialNo' onChange={handleInputChange} />
+                            </div>
                         </div>
 
-                        <div className="col-md-6">
-                            <label className='form-label profViewLabel'>Serial Number :</label>
-                            <input type="text" className="form-control" value={user.serialNo} name='serialNo' onChange={handleInputChange} />
+                        <div className="row gy-2 mt-3">
+                            <div className="col-md-6">
+                                <label className='form-label profViewLabel'>Contact Number :</label>
+                                <input type="number" className="form-control" value={user.phnNum} name='phnNum' onChange={handleInputChange} />
+                            </div>
+
+                            <div className="col-md-6">
+                                <label className='form-label profViewLabel'>Emergency Contact Number :</label>
+                                <input type="number" className="form-control" value={user.emgPhnNo} name='emgPhnNo' onChange={handleInputChange} />
+                            </div>
                         </div>
+
+                        <div className="row gy-2 mt-3">
+                            <div className="col-md-6">
+                                <label className='form-label profViewLabel'>Email :</label>
+                                <input type="email" className="form-control" value={user.email} name='email' onChange={handleInputChange} />
+                            </div>
+
+                            <div className="col-md-6">
+                                <label className='form-label profViewLabel'>Blood Group :</label>
+                                <input type="text" className="form-control" value={user.bloodGrp} name='bloodGrp' onChange={handleInputChange} />
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>
+                            <h3 className='mt-3 mb-3'>Address Details</h3>
+                        </legend>
+
+                        <div className="row mt-3">
+                            <div className="col-md-12">
+                                <label className='form-label profViewLabel'>Address Line 1 :</label>
+                                <input type="text" className="form-control" value={user.address.address1} name='address1' onChange={handleAddressInputChange} />
+                            </div>
+                        </div>
+
+                        <div className="row mt-3">
+                            <div className="col-md-12">
+                                <label className='form-label profViewLabel'>Address Line 2 :</label>
+                                <input type="text" className="form-control" value={user.address.address2} name='address2' onChange={handleAddressInputChange} />
+                            </div>
+                        </div>
+
+                        <div className="row gy-2 mt-3">
+                            <div className="col-md-6">
+                                <label className='form-label profViewLabel'>State :</label>
+                                <input type="text" className="form-control" value={user.address.state} name='state' onChange={handleAddressInputChange} />
+                            </div>
+
+                            <div className="col-md-6">
+                                <label className='form-label profViewLabel'>Pincode :</label>
+                                <input type="number" className="form-control" value={user.address.pincode} name='pincode' onChange={handleAddressInputChange} />
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>
+                            <h3 className='mt-3 mb-3'>Official Details</h3>
+                        </legend>
+
+                        <div className="row gy-2 mt-3">
+                            <div className="col-md-6">
+                                <label className='form-label profViewLabel'>Date of Joining :</label>
+                                <input type="text" className="form-control" value={user.doj} name='doj' onChange={handleInputChange} />
+                            </div>
+
+                            <div className="col-md-6">
+                                <label className='form-label profViewLabel'>Designation :</label>
+                                <input type="text" className="form-control" value={user.designation} name='designation' onChange={handleInputChange} />
+                            </div>
+                        </div>
+
+                        <div className="row gy-2 mt-3">
+                            <div className="col-md-6">
+                                <label className='form-label profViewLabel'>Role :</label>
+                                <select readOnly className="form-select"
+                                    value={user.role}
+                                    name='role'
+                                    onChange={handleInputChange}>
+                                    <option value='' disabled>Choose role</option>
+                                    <option value="Admin">Admin</option>
+                                    <option value="Employee">Employee</option>
+                                </select>
+                            </div>
+
+                            <div className="col-md-6">
+                                <label className='form-label profViewLabel'>Salary :</label>
+                                <input type="number" className="form-control" value={user.salary} name='salary' onChange={handleInputChange} />
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>
+                            <h3 className='mt-3 mb-3'>Upload Employee Photo</h3>
+                        </legend>
+
+                        <div className="row mt-3">
+                            <div className="col-md-6">
+                                <input type="file" name='picture' className="form-control" onChange={handleFileChange} />
+
+                                {user.picture?.imageUrl ? (
+                                    <img
+                                        src={user.picture.imageUrl}
+                                        alt="Employee"
+                                        style={{ width: '150px', height: '150px', marginTop: '10px' }}
+                                    />
+                                ) : previewImg ? (
+                                    <img
+                                        src={previewImg}
+                                        alt="Employee"
+                                        style={{ width: '150px', height: '150px', marginTop: '10px' }}
+                                    />
+                                ) : (
+                                    <h5 className='mt-3'>
+                                        Picture is not available. Please try again later.
+                                    </h5>
+                                )}
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <div className='d-flex justify-content-center mt-5 mb-3'>
+                        <button className='btn edit-btn'>Edit Employee</button>
                     </div>
-
-                    <div className="row gy-2 mt-3">
-                        <div className="col-md-6">
-                            <label className='form-label profViewLabel'>Contact Number :</label>
-                            <input type="number" className="form-control" value={user.phnNum} name='phnNum' onChange={handleInputChange} />
-                        </div>
-
-                        <div className="col-md-6">
-                            <label className='form-label profViewLabel'>Emergency Contact Number :</label>
-                            <input type="number" className="form-control" value={user.emgPhnNo} name='emgPhnNo' onChange={handleInputChange} />
-                        </div>
-                    </div>
-
-                    <div className="row gy-2 mt-3">
-                        <div className="col-md-6">
-                            <label className='form-label profViewLabel'>Email :</label>
-                            <input type="email" className="form-control" value={user.email} name='email' onChange={handleInputChange} />
-                        </div>
-
-                        <div className="col-md-6">
-                            <label className='form-label profViewLabel'>Blood Group :</label>
-                            <input type="text" className="form-control" value={user.bloodGrp} name='bloodGrp' onChange={handleInputChange} />
-                        </div>
-                    </div>
-                </fieldset>
-
-                <fieldset>
-                    <legend>
-                        <h3 className='mt-3 mb-3'>Address Details</h3>
-                    </legend>
-
-                    <div className="row mt-3">
-                        <div className="col-md-12">
-                            <label className='form-label profViewLabel'>Address Line 1 :</label>
-                            <input type="text" className="form-control" value={user.address.address1} name='address1' onChange={handleAddressInputChange} />
-                        </div>
-                    </div>
-
-                    <div className="row mt-3">
-                        <div className="col-md-12">
-                            <label className='form-label profViewLabel'>Address Line 2 :</label>
-                            <input type="text" className="form-control" value={user.address.address2} name='address2' onChange={handleAddressInputChange} />
-                        </div>
-                    </div>
-
-                    <div className="row gy-2 mt-3">
-                        <div className="col-md-6">
-                            <label className='form-label profViewLabel'>State :</label>
-                            <input type="text" className="form-control" value={user.address.state} name='state' onChange={handleAddressInputChange} />
-                        </div>
-
-                        <div className="col-md-6">
-                            <label className='form-label profViewLabel'>Pincode :</label>
-                            <input type="number" className="form-control" value={user.address.pincode} name='pincode' onChange={handleAddressInputChange} />
-                        </div>
-                    </div>
-                </fieldset>
-
-                <fieldset>
-                    <legend>
-                        <h3 className='mt-3 mb-3'>Official Details</h3>
-                    </legend>
-
-                    <div className="row gy-2 mt-3">
-                        <div className="col-md-6">
-                            <label className='form-label profViewLabel'>Date of Joining :</label>
-                            <input type="text" className="form-control" value={user.doj} name='doj' onChange={handleInputChange} />
-                        </div>
-
-                        <div className="col-md-6">
-                            <label className='form-label profViewLabel'>Designation :</label>
-                            <input type="text" className="form-control" value={user.designation} name='designation' onChange={handleInputChange} />
-                        </div>
-                    </div>
-
-                    <div className="row gy-2 mt-3">
-                        <div className="col-md-6">
-                            <label className='form-label profViewLabel'>Role :</label>
-                            <select readOnly className="form-select"
-                                value={user.role}
-                                name='role'
-                                onChange={handleInputChange}>
-                                <option value='' disabled>Choose role</option>
-                                <option value="Admin">Admin</option>
-                                <option value="Employee">Employee</option>
-                            </select>
-                        </div>
-
-                        <div className="col-md-6">
-                            <label className='form-label profViewLabel'>Salary :</label>
-                            <input type="number" className="form-control" value={user.salary} name='salary' onChange={handleInputChange} />
-                        </div>
-                    </div>
-                </fieldset>
-
-                <fieldset>
-                    <legend>
-                        <h3 className='mt-3 mb-3'>Upload Employee Photo</h3>
-                    </legend>
-
-                    <div className="row mt-3">
-                        <div className="col-md-6">
-                            <input type="file" name='picture' className="form-control" onChange={handleFileChange} />
-
-                            {user.picture?.imageUrl ? (
-                                <img
-                                    src={user.picture.imageUrl}
-                                    alt="Employee"
-                                    style={{ width: '150px', height: '150px', marginTop: '10px' }}
-                                />
-                            ) : previewImg ? (
-                                <img
-                                    src={previewImg}
-                                    alt="Employee"
-                                    style={{ width: '150px', height: '150px', marginTop: '10px' }}
-                                />
-                            ) : (
-                                <h5 className='mt-3'>
-                                    Picture is not available. Please try again later.
-                                </h5>
-                            )}
-                        </div>
-                    </div>
-                </fieldset>
-
-                <div className='d-flex justify-content-center mt-5 mb-3'>
-                    <button className='btn edit-btn'>Edit Employee</button>
-                </div>
-            </form>
-        </div>
+                </form>
+            </div>
+        </>
 
 
-        
     )
 }
 

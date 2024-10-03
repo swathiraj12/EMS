@@ -3,10 +3,31 @@ import { NavLink, Outlet } from 'react-router-dom';
 import '../Assets/CSS/NavBar.css'
 import { useAuth } from '../Context/ContextAuth';
 import HeaderNav from './HeaderNav';
+import axios from 'axios';
 
 const NavBar = ({ children }) => {
     const { user, signout } = useAuth()
     const [isSmallScreen, setIsSmallScreen] = useState(false)
+    
+    const [users, setUsers] = useState({})
+
+    const fetchUserDetails = async () => {
+        try {
+
+            const response = await axios.get(`http://localhost:4000/userget/${user.email}`)
+            if (response.data && response.data.userDetails) {
+                setUsers(response.data.userDetails)
+            } else {
+                console.error('No user details found in response')
+            }
+
+        } catch (error) {
+            console.log('Error in fetching the users', error);
+        }
+    }
+    useEffect(() => {
+        fetchUserDetails()
+    }, [])
 
     const checkScreenSize = () => {
         setIsSmallScreen(window.innerWidth <= 992)
@@ -17,11 +38,16 @@ const NavBar = ({ children }) => {
         window.addEventListener('resize', checkScreenSize)
         return () => window.removeEventListener('resize', checkScreenSize)
     }, [])
+    
+    const [sidebarShow, setSidebarShow] = useState(false)
 
+    const handleShowSidebar = () => {
+        setSidebarShow(!sidebarShow)
+    }
     return (
         <div className='container-fluid'>
             <div className='row'>
-                <div className={`container sidebar m-0 p-0 col-md-2 ${isSmallScreen ? 'icon-only' : ''}`}>
+                <div className={`container ${sidebarShow && "sidebar-open"} sidebar m-0 p-0 col-md-2 ${isSmallScreen ? 'icon-only' : ''}`}>
 
                     {!isSmallScreen && <h1 className='logo text-center mt-3'>ems</h1>}
                     {!isSmallScreen && <h2 className='panel-heading text-center'>Admin Panel</h2>}
@@ -39,7 +65,7 @@ const NavBar = ({ children }) => {
                             <>
                                 <li className='p-2 m-1'>
                                     <NavLink to='/addemp' className={({ isActive }) => `p-3 text-center ${isActive ? 'active-link' : ''}`}>
-                                        <span><i class="fa-solid fa-user-plus"></i></span>
+                                        <span><i className="fa-solid fa-user-plus"></i></span>
                                         {!isSmallScreen && <span> Add Employee</span>}
                                     </NavLink>
                                 </li>
@@ -48,16 +74,28 @@ const NavBar = ({ children }) => {
                                         <span><i className="fa-solid fa-users-line"></i></span> {!isSmallScreen && <span> Employee List</span>}
                                     </NavLink>
                                 </li>
+
+                                {/* {
+                                    (users?.role?.Admin?.length === 0 || user?.role === 'Admin'.length) && ( */}
+                                        <li className='p-2 m-1'>
+                                            <NavLink to='/admindetails' className={({ isActive }) => `p-3 text-center ${isActive ? 'active-link' : ''}`}>
+                                                <span><i className="fa-solid fa-user-tie"></i></span>
+                                                {!isSmallScreen && <span> Add My Details</span>}
+                                            </NavLink>
+                                        </li>
+                                    {/* )
+                                } */}
+                                
                                 <li className='p-2 m-1'>
-                                    <NavLink to='/admindetails' className={({ isActive }) => `p-3 text-center ${isActive ? 'active-link' : ''}`}>
-                                        <span><i class="fa-solid fa-user-tie"></i></span>
-                                        {!isSmallScreen && <span> Add My Details</span>}
+                                    <NavLink to='/admin' className={({ isActive }) => `p-3 text-center ${isActive ? 'active-link' : ''}`}>
+                                        <span><i className="fa-brands fa-black-tie"></i></span>
+                                        {!isSmallScreen && <span> My Profile</span>}
                                     </NavLink>
                                 </li>
                                 <li className='p-2 m-1'>
-                                    <NavLink to='/admin' className={({ isActive }) => `p-3 text-center ${isActive ? 'active-link' : ''}`}>
-                                        <span><i class="fa-brands fa-black-tie"></i></span>
-                                        {!isSmallScreen && <span> My Profile</span>}
+                                    <NavLink to='/mail-send' className={({ isActive }) => `p-3 text-center ${isActive ? 'active-link' : ''}`}>
+                                        <span><i className="fa-solid fa-envelope"></i></span>
+                                        {!isSmallScreen && <span> Mail Sender</span>}
                                     </NavLink>
                                 </li>
                             </>
@@ -74,17 +112,17 @@ const NavBar = ({ children }) => {
                             </>
                         )}
                     </ul>
-                    {/* Common links */}
+                    {/* Common link */}
                     <div className='btn-sec d-flex justify-content-center'>
-                        <button className='btn w-75 mb-5 signoutBtn' onClick={signout}> <span><i className="fa-solid fa-right-from-bracket"></i></span>
+                        <button className='btn mb-5 signoutBtn' onClick={signout}> <span><i className="fa-solid fa-right-from-bracket"></i></span>
                             {!isSmallScreen && <span> Sign out</span>}</button>
                     </div>
                 </div>
 
-                <div className="col-2"></div>
+                <div className="col-sm-2 col-2"></div>
 
-                <div className="col-md-10 col-12 ps-3">
-                    <HeaderNav />
+                <div className="col-md-10 col-sm-10 col-12 ps-3">
+                    <HeaderNav handleShowSidebar={handleShowSidebar} />
                     <Outlet />
                 </div>
             </div>
