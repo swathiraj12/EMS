@@ -13,11 +13,48 @@ const SignUp = () => {
     const [otp, setOtp] = useState(0)
     const [isOtpSent, setIsOtpSent] = useState(false)
     const [isVerified, setIsVerified] = useState(false)
+    const [errors, setErrors] = useState({})
 
     const navigate = useNavigate()
 
+    //Validation
+    const validateForm = () => {
+        const newErrors = {};
+        const pwdRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{6,}$/;
+
+        if (!email) {
+            newErrors.email = 'Email is required';
+        } else if (!/\S+@\S+\.\S+/.test(email)) {
+            newErrors.email = 'Invalid email format';
+        }
+
+        if (!password) {
+            newErrors.password = 'Password is required';
+        } else if (!pwdRegex.test(password)) {
+            newErrors.password = 'Password must be at least 6 characters, contain one uppercase letter, one number, and one special character';
+        }
+
+        if (!confirmPwd) {
+            newErrors.confirmPwd = 'Please confirm your password';
+        } else if (password !== confirmPwd) {
+            newErrors.confirmPwd = 'Passwords do not match';
+        }
+
+        if (!role) {
+            newErrors.role = 'Role is required';
+        }
+
+        if (role !== 'Employee' && !name) {
+            newErrors.name = 'Name is required';
+        }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
     //Function for sending OTP
     const sendOtp = async () => {
+        if (!validateForm()) return
         try {
             const response = await axios.post('http://localhost:4000/signup', {
                 name,
@@ -42,7 +79,7 @@ const SignUp = () => {
 
         console.log('Entered OTP:', otp)
         const otpNum = parseInt(otp)
-        console.log(typeof (otpNum));
+        // console.log(typeof (otpNum));
 
         try {
             const response = await axios.post('http://localhost:4000/verifyotp', {
@@ -78,6 +115,7 @@ const SignUp = () => {
                                         className='form-control'
                                         value={name}
                                         onChange={(e) => setName(e.target.value)} />
+                                    {errors.name && <p className="error-text text-danger">{errors.name}</p>}
                                 </>
                             )}
 
@@ -86,18 +124,21 @@ const SignUp = () => {
                                 className='form-control'
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)} />
+                            {errors.email && <p className="error-text text-danger">{errors.email}</p>}
 
                             <label className='form-label mt-3 mb-3'>Password:</label>
                             <input type="password"
                                 className='form-control'
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)} />
+                            {errors.password && <p className="error-text text-danger">{errors.password}</p>}
 
                             <label className='form-label mt-3 mb-3'>Confirm Password:</label>
                             <input type="password"
                                 className='form-control'
                                 value={confirmPwd}
                                 onChange={(e) => setConfirmPwd(e.target.value)} />
+                            {errors.confirmPwd && <p className="error-text text-danger">{errors.confirmPwd}</p>}
 
                             <label className='form-label mt-3 mb-3'>Role:</label>
                             <select className="form-select"
@@ -107,6 +148,7 @@ const SignUp = () => {
                                 <option value="Admin">Admin</option>
                                 <option value="Employee">Employee</option>
                             </select>
+                            {errors.role && <p className="error-text text-danger">{errors.role}</p>}
 
                             <div className='d-flex flex-column justify-content-center'>
                                 {

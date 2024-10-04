@@ -10,15 +10,38 @@ const SignIn = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [errorMessage, setErrorMessage] = useState('');
+    const [errors, setErrors] = useState({})
 
     const [forgetPwd, setForgetPwd] = React.useState(false);
 
     const navigate = useNavigate()
     const authContext = useAuth()
 
+    //Validation
+    const validateForm = () => {
+        const newErrors = {};
+        const pwdRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{6,}$/;
+
+        if (!email) {
+            newErrors.email = 'Email is required';
+        } else if (!/\S+@\S+\.\S+/.test(email)) {
+            newErrors.email = 'Invalid email format';
+        }
+
+        if (!password) {
+            newErrors.password = 'Password is required';
+        } else if (!pwdRegex.test(password)) {
+            newErrors.password = 'Password must be at least 6 characters, contain one uppercase letter, one number, and one special character';
+        }
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
+
     //Function for handling sign-in
     const handleSignIn = async (e) => {
         e.preventDefault()
+        if (!validateForm()) return
         try {
             const response = await axios.post('http://localhost:4000/signin', {
                 email,
@@ -64,6 +87,7 @@ const SignIn = () => {
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
                                 />
+                                {errors.email && <p className="error-text text-danger">{errors.email}</p>}
 
                                 <label className='form-label mt-3 mb-3'>Password:</label>
                                 <input type="password"
@@ -72,6 +96,7 @@ const SignIn = () => {
                                     onChange={(e) => setPassword(e.target.value)}
                                     required
                                 />
+                                {errors.password && <p className="error-text text-danger">{errors.password}</p>}
 
                                 <h6 className='text-end d-block mt-1 mb-3' onClick={() => setForgetPwd(true)}>Forgot Password?</h6>
 

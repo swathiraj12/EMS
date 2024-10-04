@@ -160,10 +160,10 @@ const UserPwdChange = async (req, res) => {
         const user = await authModel.findById(id)
 
         if (!user) return res.status(404).json({ Message: 'User not found' })
-        console.log(oldPwd, user.password);
+        // console.log(oldPwd, user.password);
 
         const isPwdMatch = await bcrypt.compare(oldPwd, user.password)
-        console.log(isPwdMatch);
+        // console.log(isPwdMatch);
 
         if (!isPwdMatch) return res.status(400).json({ Message: 'Password does not match. Please enter correct one.' })
 

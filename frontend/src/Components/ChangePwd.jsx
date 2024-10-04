@@ -14,6 +14,9 @@ const ChangePwd = (props) => {
     const [confirmPwd, setConfirmPwd] = useState('')
 
     const [users, setUsers] = useState({})
+    const [errorMessage, setErrorMessage] = useState('')
+
+    const pwdRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{6,}$/;
 
     const fetchUserDetails = async () => {
         try {
@@ -34,11 +37,37 @@ const ChangePwd = (props) => {
         fetchUserDetails()
     }, [])
 
-    const handlePwdChange = async () => {
-        if (newPwd !== confirmPwd) {
-            alert('Passwords do not match')
-            return
+    //Validate passwords
+    const validatePasswords = () => {
+        if (!oldPwd) {
+            setErrorMessage('Old password is required');
+            return false;
         }
+
+        if (!newPwd) {
+            setErrorMessage('New password is required');
+            return false;
+        }
+
+        if (!pwdRegex.test(newPwd)) {
+            setErrorMessage('New password must be at least 6 characters long, include one uppercase letter, one number, and one special character');
+            return false;
+        }
+
+        if (newPwd !== confirmPwd) {
+            setErrorMessage('New password and confirmation password do not match');
+            return false;
+        }
+
+        setErrorMessage('');
+        return true;
+    }
+
+    const handlePwdChange = async () => {
+        if (!validatePasswords()) {
+            return;
+        }
+
         try {
             const response = await axios.post(`http://localhost:4000/change-pwd/${user.id}`, {
                 oldPwd,
@@ -125,6 +154,12 @@ const ChangePwd = (props) => {
                                                 value={confirmPwd}
                                                 onChange={(e) => setConfirmPwd(e.target.value)}
                                             />
+
+                                            {errorMessage && (
+                                                <div className="alert alert-danger mt-3" role="alert">
+                                                    {errorMessage}
+                                                </div>
+                                            )}
 
                                             <div className='mt-4 d-flex justify-content-evenly'>
                                                 <button className='btn changePwdBtn' onClick={handlePwdChange}>

@@ -2,22 +2,54 @@ import React, { useState } from 'react'
 import Modal from 'react-bootstrap/Modal';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
-import '../Assets/CSS/ForgetPwd.css'
+import '../Assets/CSS/ProfileshowEdit.css'
 
 const ForgetPwd = (props) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPwd, setConfirmPwd] = useState('')
-    const [otp, setOtp] = useState(0)
+    const [otp, setOtp] = useState('')
     const [isOtpSent, setIsOtpSent] = useState(false)
     const [isVerified, setIsVerified] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
-    const [successMessage, setSuccessMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('')
+    const [errors, setErrors] = useState({})
 
     const navigate = useNavigate()
 
+    //Validation
+    const newErrors = {};
+    const pwdRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{6,}$/;
+
+    const validateFormEmail = () => {
+        if (!email) {
+            newErrors.email = 'Email is required';
+        } else if (!/\S+@\S+\.\S+/.test(email)) {
+            newErrors.email = 'Invalid email format';
+        }
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    }
+
+    const validateFormPwd = () => {
+        if (!password) {
+            newErrors.password = 'Password is required';
+        } else if (!pwdRegex.test(password)) {
+            newErrors.password = 'Password must be at least 6 characters, contain one uppercase letter, one number, and one special character';
+        }
+
+        if (!confirmPwd) {
+            newErrors.confirmPwd = 'Please confirm your password';
+        } else if (password !== confirmPwd) {
+            newErrors.confirmPwd = 'Passwords do not match';
+        }
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    }
+
     //Function for OTP
     const sendOtp = async () => {
+        if (!validateFormEmail()) return
         try {
             const response = await axios.post('http://localhost:4000/forget-pwd', { email })
 
@@ -38,7 +70,7 @@ const ForgetPwd = (props) => {
 
         console.log('Entered OTP:', otp)
         const otpNum = parseInt(otp)
-        console.log(typeof (otpNum));
+        // console.log(typeof (otpNum));
 
         try {
             const response = await axios.post('http://localhost:4000/verifyotp', {
@@ -60,6 +92,7 @@ const ForgetPwd = (props) => {
     //Function to reset password
     const handleResetPwd = async (e) => {
         e.preventDefault()
+        if (!validateFormPwd()) return
 
         if (password !== confirmPwd) {
             setErrorMessage('Passwords do not match')
@@ -107,6 +140,7 @@ const ForgetPwd = (props) => {
                             <div className="col-lg-6 d-flex flex-column justify-content-center">
                                 <label className='form-label profViewLabel text-center mt-3 mb-3'>Enter your Email Address</label>
                                 <input type="email" className='form-control profViewInput' value={email} onChange={(e) => setEmail(e.target.value)} />
+                                {errors.email && <p className="error-text text-danger">{errors.email}</p>}
 
                                 <div className='mt-3 d-flex justify-content-center'>
                                     {
@@ -117,7 +151,7 @@ const ForgetPwd = (props) => {
                                                 <div>
                                                     <label className='form-label text-start mt-3 mb-3'>Enter OTP:</label>
                                                     <input type="number"
-                                                        className='form-control'
+                                                            className='form-control profViewInput'
                                                         value={otp}
                                                         onChange={(e) => setOtp(e.target.value)} />
 
@@ -132,15 +166,17 @@ const ForgetPwd = (props) => {
                                                 <div>
                                                     <label className='form-label mt-3 mb-3'>Password:</label>
                                                     <input type="password"
-                                                        className='form-control'
+                                                            className='form-control profViewInput'
                                                         value={password}
-                                                        onChange={(e) => setPassword(e.target.value)} />
+                                                                onChange={(e) => setPassword(e.target.value)} />
+                                                            {errors.password && <p className="error-text text-danger">{errors.password}</p>}
 
                                                     <label className='form-label mt-3 mb-3'>Confirm Password:</label>
                                                     <input type="password"
-                                                        className='form-control'
+                                                                className='form-control profViewInput'
                                                         value={confirmPwd}
-                                                        onChange={(e) => setConfirmPwd(e.target.value)} />
+                                                                onChange={(e) => setConfirmPwd(e.target.value)} />
+                                                            {errors.confirmPwd && <p className="error-text text-danger">{errors.confirmPwd}</p>}
 
                                                             <div className='mt-3 d-flex justify-content-center'>
                                                                 <button className="changePwdBtn btn" onClick={handleResetPwd} type="submit">
