@@ -102,8 +102,16 @@ const updateUser = async (req, res) => {
         const addressData = { address1, address2, state, pincode }
         const picture = req.file
 
-        const imgResult = await cloudUpload(picture.path)
-        console.log(imgResult);
+        const existUser = await empModel.findOne({ email })
+        if (!existUser) {
+            return res.status(404).json({ Message: 'User not found' })
+        }
+
+        let imgResult
+        if (picture) {
+            imgResult = await cloudUpload(picture.path)
+            console.log(imgResult);
+        }
 
         const user = await empModel.findByIdAndUpdate(id, {
             name,
@@ -117,10 +125,12 @@ const updateUser = async (req, res) => {
             designation,
             role,
             salary,
-            picture: {
-                imageUrl: imgResult.url,
-                publicId: imgResult.public_id
-            }
+            ...(picture && {
+                picture: {
+                    imageUrl: imgResult.url,
+                    publicId: imgResult.public_id
+                }
+            }) 
         }, { new: true })
         return res.status(200).json({Message: 'User details updated successfully', user})
     } catch (error) {

@@ -54,8 +54,8 @@ const NavBar = ({ children }) => {
 
                     <ul>
                         <li className='p-2 m-1'>
-                            <NavLink to='/' className={({ isActive }) => `p-3 text-center ${isActive ? 'active-link' : ''}`}>
-                                <span><i className="fa-solid fa-house"></i></span>
+                            <NavLink to='/' className={({ isActive }) => `p-3 ${isActive ? 'active-link' : ''}`}>
+                                <span><i className="fa-solid fa-house me-2"></i></span>
                                 {!isSmallScreen && <span> Dashboard</span>}
                             </NavLink>
                         </li>
@@ -64,22 +64,22 @@ const NavBar = ({ children }) => {
                         {user?.role === 'Admin' && (
                             <>
                                 <li className='p-2 m-1'>
-                                    <NavLink to='/addemp' className={({ isActive }) => `p-3 text-center ${isActive ? 'active-link' : ''}`}>
-                                        <span><i className="fa-solid fa-user-plus"></i></span>
+                                    <NavLink to='/addemp' className={({ isActive }) => `p-3 ${isActive ? 'active-link' : ''}`}>
+                                        <span><i className="fa-solid fa-user-plus me-2"></i></span>
                                         {!isSmallScreen && <span> Add Employee</span>}
                                     </NavLink>
                                 </li>
                                 <li className='p-2 m-1'>
-                                    <NavLink to='/employee' className={({ isActive }) => `p-3 text-center ${isActive ? 'active-link' : ''}`}>
-                                        <span><i className="fa-solid fa-users-line"></i></span> {!isSmallScreen && <span> Employee List</span>}
+                                    <NavLink to='/employee' className={({ isActive }) => `p-3 ${isActive ? 'active-link' : ''}`}>
+                                        <span><i className="fa-solid fa-users-line me-2"></i></span> {!isSmallScreen && <span> Employee List</span>}
                                     </NavLink>
                                 </li>
 
                                 {/* {
                                     (users?.role?.Admin?.length === 0 || user?.role === 'Admin'.length) && ( */}
                                         <li className='p-2 m-1'>
-                                            <NavLink to='/admindetails' className={({ isActive }) => `p-3 text-center ${isActive ? 'active-link' : ''}`}>
-                                                <span><i className="fa-solid fa-user-tie"></i></span>
+                                            <NavLink to='/admindetails' className={({ isActive }) => `p-3 ${isActive ? 'active-link' : ''}`}>
+                                        <span><i className="fa-solid fa-user-tie me-2"></i></span>
                                                 {!isSmallScreen && <span> Add My Details</span>}
                                             </NavLink>
                                         </li>
@@ -87,14 +87,14 @@ const NavBar = ({ children }) => {
                                 } */}
                                 
                                 <li className='p-2 m-1'>
-                                    <NavLink to='/admin' className={({ isActive }) => `p-3 text-center ${isActive ? 'active-link' : ''}`}>
-                                        <span><i className="fa-brands fa-black-tie"></i></span>
+                                    <NavLink to='/admin' className={({ isActive }) => `p-3 ${isActive ? 'active-link' : ''}`}>
+                                        <span><i className="fa-brands fa-black-tie me-2"></i></span>
                                         {!isSmallScreen && <span> My Profile</span>}
                                     </NavLink>
                                 </li>
                                 <li className='p-2 m-1'>
-                                    <NavLink to='/mail-send' className={({ isActive }) => `p-3 text-center ${isActive ? 'active-link' : ''}`}>
-                                        <span><i className="fa-solid fa-envelope"></i></span>
+                                    <NavLink to='/mail-send' className={({ isActive }) => `p-3 ${isActive ? 'active-link' : ''}`}>
+                                        <span><i className="fa-solid fa-envelope me-2"></i></span>
                                         {!isSmallScreen && <span> Mail Sender</span>}
                                     </NavLink>
                                 </li>
@@ -105,7 +105,7 @@ const NavBar = ({ children }) => {
                         {user?.role === 'Employee' && (
                             <>
                                 <li className='p-2 m-1'>
-                                    <NavLink to='/empdetails/:email' className={({ isActive }) => `p-3 text-center ${isActive ? 'active-link' : ''}`}> <span><i className="fa-solid fa-circle-info"></i></span>
+                                    <NavLink to='/empdetails/:email' className={({ isActive }) => `p-3 ${isActive ? 'active-link' : ''}`}> <span><i className="fa-solid fa-circle-info me-2"></i></span>
                                         {!isSmallScreen && <span> My Details</span>}
                                     </NavLink>
                                 </li>

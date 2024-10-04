@@ -48,11 +48,11 @@ const ViewEmployee = () => {
                             .map((user) => (
                                 <div className="card emp-card mt-3 mb-3 d-flex flex-row justify-content-center" key={user._id}>
                                     <div className="row g-0">
-                                        <div className="emp-card-image">
+                                        <div className="emp-card-image col-6">
                                             <img src={user.picture.imageUrl} alt="" className="img-fluid card-img" />
                                         </div>
 
-                                        <div className="emp-card-details card-body">
+                                        <div className="emp-card-details card-body col-6">
                                             <div className="emp-card-head">
                                                 <h3 className="card-title text-center mt-3">{user.name}</h3>
                                                 <h6 className="card-title text-center mt-2 mb-3">{user.designation}</h6>
