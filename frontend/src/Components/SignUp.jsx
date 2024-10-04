@@ -104,7 +104,7 @@ const SignUp = () => {
                 <div className="row">
                     <div className="col-lg-6 col-md-12 p-3">
                         <form className='sign-up-form'>
-                            <h1 className='text-center'>swathi</h1>
+                            <h1 className='text-center'>ems</h1>
                             <h2 className='text-center'>Sign Up</h2>
                             <p className='text-center'>"A secure login is the first step to protecting your digital world"</p>
 

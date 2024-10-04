@@ -9,12 +9,14 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     position: fixed;
     left: 0;
-    overflow: scroll;
+    overflow: auto;
     top: 0;
-    left: 0;
     scrollbar-width: none;
     transition:  all .4s;
     z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 .main-content {
     background-color: #E6E6FA;
@@ -37,6 +39,7 @@
 .sidebar ul{
     list-style: none;
     padding: 0;
+    flex-grow: 1
 }
 .sidebar ul li a{
     color: #5e3f8e;
@@ -56,6 +59,13 @@
     font-weight: bold;
     border-radius: 5px;
 }
+.btn-sec{
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 20px;
+}
 .btn-sec .signoutBtn{
     background-color: #9370DB;
     color: #fff;
@@ -63,7 +73,7 @@
     cursor: pointer;
     font-size: 16px;
     border-radius: 5px;
-    position: absolute;
+    position: relative;
     bottom: 0;
 }
 .btn-sec .signoutBtn:hover{

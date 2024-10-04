@@ -76,7 +76,7 @@ const SignIn = () => {
                     <div className="row">
                         <div className="col-lg-6 col-md-12 p-3">
                             <form className='sign-in-form' onSubmit={handleSignIn}>
-                                <h1 className='text-center'>swathi</h1>
+                                <h1 className='text-center'>ems</h1>
                                 <h2 className='text-center'>Sign In</h2>
                                 <p className='text-center'>"Access your account to continue"</p>
 
