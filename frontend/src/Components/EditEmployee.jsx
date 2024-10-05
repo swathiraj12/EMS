@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import '../Assets/CSS/EditEmployee.css'
+import PreLoader from './PreLoader'
 
 const EditEmployee = () => {
     const { id } = useParams()
@@ -74,15 +75,19 @@ const EditEmployee = () => {
             const data = response.data
             console.log('Updated user:', data);
 
-            navigate('/employee')
+            // Conditional navigation based on user role
+            if (user?.role === 'Admin') {
+                navigate('/admin')
+            } else {
+                navigate('/employee')
+            }
         } catch (error) {
             console.log('Error in editing the user details', error);
-
         }
     }
 
     if (loading) {
-        return <h1>Loading...</h1>
+        return < PreLoader />;
     }
 
     return (

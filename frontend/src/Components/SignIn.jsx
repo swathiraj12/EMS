@@ -5,18 +5,42 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../Context/ContextAuth'
 import ForgetPwd from './ForgetPwd'
+import toast, { Toaster } from "react-hot-toast";
+import PreLoader from './PreLoader'
 
 const SignIn = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [errorMessage, setErrorMessage] = useState('');
     const [errors, setErrors] = useState({})
+    const [isLoading, setIsLoading] = useState(false);
 
     const [forgetPwd, setForgetPwd] = React.useState(false);
 
     const navigate = useNavigate()
     const authContext = useAuth()
 
+    // Hot toast notification---
+    // Success notification
+    const notifySuccess = (msg) =>
+        toast.success(msg, {
+            style: {
+                borderRadius: "10px",
+                background: "#FFFFFF",
+                color: "rgb(17, 40, 51)",
+            },
+        });
+
+    // Error notification
+    const notifyError = (msg) =>
+        toast.error(msg, {
+            style: {
+                borderRadius: "10px",
+                background: "#FFFFFF",
+                color: "rgb(17, 40, 51)",
+            },
+        });
+    
     //Validation
     const validateForm = () => {
         const newErrors = {};
@@ -42,11 +66,13 @@ const SignIn = () => {
     const handleSignIn = async (e) => {
         e.preventDefault()
         if (!validateForm()) return
+        setIsLoading(true)
         try {
             const response = await axios.post('http://localhost:4000/signin', {
                 email,
                 password
             })
+            setIsLoading(false)
             console.log(response);
 
 
@@ -54,8 +80,6 @@ const SignIn = () => {
 
             authContext.signin(token)
             localStorage.setItem('token', token)
-
-            // alert('Signed in successfully!');
 
             setEmail('');
             setPassword('');
@@ -66,11 +90,19 @@ const SignIn = () => {
         } catch (error) {
             setErrorMessage('Invalid credentials or server error.')
             console.log('Error in sign in', error);
+            setIsLoading(false);
+            notifyError(error.response?.data.message || "Error on sign-in")
         }
+    }
+
+    if (isLoading) {
+        return <PreLoader />;
     }
 
     return (
         <>
+            {/* React hot toast  */}
+            <Toaster position="top-right" reverseOrder={false} />
             <div className='d-flex justify-content-center'>
                 <div className='container sign-in d-flex justify-content-center p-5 my-5 bg-light'>
                     <div className="row">
@@ -84,6 +116,7 @@ const SignIn = () => {
                                 <input type="email"
                                     className='form-control'
                                     value={email}
+                                    name='email'
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
                                 />

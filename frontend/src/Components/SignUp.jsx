@@ -3,6 +3,7 @@ import axios from 'axios'
 import '../Assets/CSS/SignUp.css'
 import signupImg from '../Assets/Images/signup.jpg'
 import { useNavigate } from 'react-router-dom'
+import toast, { Toaster } from "react-hot-toast";
 
 const SignUp = () => {
     const [name, setName] = useState('')
@@ -16,6 +17,27 @@ const SignUp = () => {
     const [errors, setErrors] = useState({})
 
     const navigate = useNavigate()
+
+    // Hot toast notification
+    // Success notification
+    const notifySuccess = (msg) =>
+        toast.success(msg, {
+            style: {
+                borderRadius: "10px",
+                background: "#FFFFFF",
+                color: "rgb(17, 40, 51)",
+            },
+        });
+
+    // Error notification
+    const notifyError = (msg) =>
+        toast.error(msg, {
+            style: {
+                borderRadius: "10px",
+                background: "#FFFFFF",
+                color: "rgb(17, 40, 51)",
+            },
+        });
 
     //Validation
     const validateForm = () => {
@@ -69,7 +91,7 @@ const SignUp = () => {
             }
         } catch (error) {
             console.log('Failed to send OTP', error);
-            alert('Failed to send OTP. Please try again.');
+            notifyError(error.response.data.message || "error in sign-up")
         }
     }
 
@@ -87,19 +109,19 @@ const SignUp = () => {
                 otp: otpNum
             })
             if (response.status === 200) {
+                notifySuccess("OTP Verified")
                 setIsVerified(true)
-                // alert('OTP verified and User registered successfully!')
             }
             navigate('/signin')
         } catch (error) {
             setIsVerified(false)
-            alert('Invalid OTP or OTP expired. Please try again.');
             console.log('Invalid OTP or OTP expired', error);
         }
     }
 
     return (
         <>
+            <Toaster position="top-right" reverseOrder={false} />
             <div className='container sign-up d-flex justify-content-center p-5 my-5 bg-light'>
                 <div className="row">
                     <div className="col-lg-6 col-md-12 p-3">

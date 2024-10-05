@@ -2,20 +2,44 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../Assets/CSS/ViewEmployee.css'
 import axios from 'axios'
+import toast, { Toaster } from "react-hot-toast";
 
 const AdminProfile = () => {
     const [users, setUsers] = useState([])
 
     const navigate = useNavigate()
 
+    // Hot toast notification---
+    // Success notification
+    const notifySuccess = (msg) =>
+        toast.success(msg, {
+            style: {
+                borderRadius: "10px",
+                background: "#FFFFFF",
+                color: "rgb(17, 40, 51)",
+            },
+        });
+
+    // Error notification
+    const notifyError = (msg) =>
+        toast.error(msg, {
+            style: {
+                borderRadius: "10px",
+                background: "#FFFFFF",
+                color: "rgb(17, 40, 51)",
+            },
+        });
+
     const fetchEmployees = async () => {
         try {
             const response = await axios.get('http://localhost:4000/getusers')
             setUsers(response.data.users)
+            notifySuccess(response.data.message || 'Admin details')
             console.log(response.data.users);
 
         } catch (error) {
             console.log('Error in fetching the users', error);
+            notifyError("Error on server")
         }
     }
     useEffect(() => {
@@ -32,14 +56,16 @@ const AdminProfile = () => {
         navigate(`/editemp/${_id}`)
     }
     return (
-        <div className="container view-emp">
-            <div className="row">
-                <div className='view-emp-display'>
-                    {
-                        users
+        <>
+            {/* React hot toast  */}
+            <Toaster position="top-right" reverseOrder={false} />
+            <div className="container view-emp">
+                <div className="row">
+                    <div className='view-emp-display'>
+                        {users
                             .filter(user => user.role !== 'Employee')
                             .map((user) => (
-                                <div className="card emp-card mt-3 mb-3 d-flex flex-row justify-content-center" style={{maxWidth: '500px'}} key={user._id}>
+                                <div className="card emp-card mt-3 mb-3 d-flex flex-row justify-content-center" style={{ maxWidth: '500px' }} key={user._id}>
                                     <div className="row g-0">
                                         <div className="emp-card-image">
                                             <img src={user.picture.imageUrl} alt="" className="img-fluid card-img" />
@@ -71,12 +97,11 @@ const AdminProfile = () => {
                                         </div>
                                     </div>
                                 </div>
-
-                            ))
-                    }
+                            ))}
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 

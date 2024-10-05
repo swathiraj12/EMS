@@ -26,8 +26,6 @@ const HeaderNav = ({ handleShowSidebar }) => {
                 return 'ADD EMPLOYEE'
             case '/employee':
                 return 'EMPLOYEES LIST'
-            case '/admindetails':
-                return 'ADD MY DETAILS'
             case '/admin':
                 return 'MY PROFILE'
             case '/empdetails/:id':
@@ -71,25 +69,28 @@ const HeaderNav = ({ handleShowSidebar }) => {
 
                 <div className="col-md-6 col-12">
                     <div className="user-info d-flex justify-content-center">
-                        <div className="dropdownSetting me-3">
-                            <button className='btn dropdown-toggle' type='button' id='settingsDropdown' data-bs-toggle="dropdown" aria-expanded="false">
-                                <i className="fa-solid fa-gear" style={{ color: '#694f8e' }}></i>
-                            </button>
-                            <ul className="dropdown-menu" aria-labelledby="settingsDropdown">
+                        {user?.role === 'Employee' ?
+                            <div className="dropdownSetting me-3">
+                                <button className='btn dropdown-toggle' type='button' id='settingsDropdown' data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i className="fa-solid fa-gear" style={{ color: '#694f8e' }}></i>
+                                </button>
+                                <ul className="dropdown-menu" aria-labelledby="settingsDropdown">
 
-                                {/* Conditionally render "My Profile" only for employees */}
-                                {/* {user?.role === 'Employee' && (
-                                    <li className="dropdown-item" onClick={() => setProfileShow(true)}>
-                                        <span><i className="fa-solid fa-id-badge"></i></span> My Profile
-                                    </li>
-                                )} */}
+                                    <li className="dropdown-item" onClick={() => setChangePwd(true)}> <span><i className="fa-solid fa-lock"></i></span> Change Password</li>
 
-                                <li className="dropdown-item" onClick={() => setChangePwd(true)}> <span><i className="fa-solid fa-lock"></i></span> Change Password</li>
+                                    <li className="dropdown-item" onClick={signout}> <span><i className="fa-solid fa-right-from-bracket"></i></span> Sign out</li>
 
-                                <li className="dropdown-item" onClick={signout}> <span><i className="fa-solid fa-right-from-bracket"></i></span> Sign out</li>
+                                </ul>
+                            </div>
+                            :
+                            <div className="icon-only me-3">
+                                <button className='btn signout-btn' type='button' onClick={signout}>
+                                    <i className="fa-solid fa-right-from-bracket me-2"></i>
+                                    <span>Sign out</span>
+                                </button>
+                            </div>
+                        }
 
-                            </ul>
-                        </div>
 
                         {/* Welcome Note and User's Name */}
                         <div className="welcome-note">
@@ -97,23 +98,19 @@ const HeaderNav = ({ handleShowSidebar }) => {
                         </div>
 
                         {/* User's Profile Picture */}
-                        <div className="user-profile-picture ms-2">
-                            <img
-                                src={users?.picture || profilePic}
-                                alt={`${user?.name || user}'s profile`}
-                                className="img-fluid rounded-circle"
-                                style={{ width: '45px', height: '45px' }}
-                            />
-
-                        </div>
+                        {user?.role !== 'Admin' && (
+                            <div className="user-profile-picture ms-2">
+                                <img
+                                    src={users?.picture || profilePic}
+                                    alt={`${user?.name || user}'s profile`}
+                                    className="img-fluid rounded-circle"
+                                    style={{ width: '45px', height: '45px' }}
+                                />
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
-
-            {/* <Profileshow
-                show={profileShow}
-                onHide={() => setProfileShow(false)}
-            /> */}
 
             <ChangePwd
                 show={changePwd}

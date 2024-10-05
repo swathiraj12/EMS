@@ -1,12 +1,13 @@
 import React from "react";
 import { useAuth } from "../Context/ContextAuth";
 import { Navigate } from "react-router-dom";
+import PreLoader from "../Components/PreLoader";
 
 const ProtectedRoutes = ({ children, role }) => {
     const { user, loading } = useAuth()
 
     if (loading) {
-        return <h1>Loading...</h1>
+        return <PreLoader />;
     }
 
     if (role && user && !role.includes(user.role)) {

@@ -1,5 +1,6 @@
 import  {jwtDecode}  from 'jwt-decode'
 import { createContext, useContext, useEffect, useState } from 'react'
+import PreLoader from '../Components/PreLoader'
 
 const authContext = createContext(null)
 
@@ -30,6 +31,9 @@ export const AuthProvider = ({ children }) => {
     const signout = () => {
         setUser(null)
         localStorage.removeItem('token')
+    }
+    if (loading) {
+        return <PreLoader />;
     }
     return (
         <authContext.Provider value={{ signin, signout, user, loading }}>

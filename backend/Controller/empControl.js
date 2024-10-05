@@ -95,6 +95,18 @@ const getUserById = async (req, res) => {
     }
 }
 
+const CheckAdmin = async (req, res) => {
+    try {
+        const admin = await empModel.findOne({ role: "Admin" })
+        if (admin) {
+            return res.json({ adminExists: true })
+        }
+        return res.json({ adminExists: false })
+    } catch (error) {
+        return res.status(500).json({ error: 'Error checking for admin' })
+    }
+}
+
 const updateUser = async (req, res) => {
     try {
         const { id } = req.params
@@ -177,4 +189,4 @@ const MaitToIndividual = async (req, res) => {
         return res.status(500).json({ Message: 'Internal error in sending Email to individual employee' })
     }
 }
-module.exports = { picUpload, createUser, getUsers, getUserByEmail, getUserById, updateUser, delUser, MaitToIndividual }
+module.exports = { picUpload, createUser, getUsers, getUserByEmail, getUserById, CheckAdmin, updateUser, delUser, MaitToIndividual }

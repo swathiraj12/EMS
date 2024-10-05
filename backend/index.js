@@ -45,7 +45,7 @@ const createAdminIfNotExists = async () => {
         console.error("Error creating admin:", error);
     }
 }
-//createAdminIfNotExists()
+createAdminIfNotExists()
 //Use only on production for create a first admin
 
 mongoose.connect(process.env.mongoDB)

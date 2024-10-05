@@ -11,7 +11,6 @@ import NavBar from './Components/NavBar';
 import AddEmployee from './Components/AddEmployee';
 import ViewEmployee from './Components/ViewEmployee';
 import EditEmployee from './Components/EditEmployee';
-import AddAdminDetails from './Components/AddAdminDetails';
 import AdminProfile from './Components/AdminProfile';
 import EmployeeProfile from './Components/EmployeeProfile';
 import MailSender from './Components/MailSender';
@@ -41,7 +40,6 @@ const App = () => {
             <Route path='/addemp' element={<AddEmployee />} />
             <Route path='/employee' element={<ViewEmployee />} />
             <Route path='/editemp/:id' element={<EditEmployee />} />
-            <Route path='/admindetails' element={<AddAdminDetails />} />
             <Route path='/admin' element={<AdminProfile />} />
             <Route path='/empdetails/:email' element={<EmployeeProfile />} />
             <Route path='/mail-send' element={<MailSender />} />

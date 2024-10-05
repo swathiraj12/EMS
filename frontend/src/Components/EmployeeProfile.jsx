@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import '../Assets/CSS/ViewEmployee.css'
 import axios from 'axios'
 import { useAuth } from '../Context/ContextAuth'
+import PreLoader from './PreLoader'
 
 const EmployeeProfile = () => {
     const { user } = useAuth()
@@ -28,7 +29,7 @@ const EmployeeProfile = () => {
     }, [])
 
     if (loading) {
-        return <h1>Loading...</h1>
+        return <PreLoader />;
     }
     return (
         <>

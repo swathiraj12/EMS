@@ -74,17 +74,6 @@ const NavBar = ({ children }) => {
                                         <span><i className="fa-solid fa-users-line me-2"></i></span> {!isSmallScreen && <span> Employee List</span>}
                                     </NavLink>
                                 </li>
-
-                                {/* {
-                                    (users?.role?.Admin?.length === 0 || user?.role === 'Admin'.length) && ( */}
-                                        <li className='p-2 m-1'>
-                                            <NavLink to='/admindetails' className={({ isActive }) => `p-3 ${isActive ? 'active-link' : ''}`}>
-                                        <span><i className="fa-solid fa-user-tie me-2"></i></span>
-                                                {!isSmallScreen && <span> Add My Details</span>}
-                                            </NavLink>
-                                        </li>
-                                    {/* )
-                                } */}
                                 
                                 <li className='p-2 m-1'>
                                     <NavLink to='/admin' className={({ isActive }) => `p-3 ${isActive ? 'active-link' : ''}`}>
