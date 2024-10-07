@@ -95,6 +95,8 @@ const ChangePwd = (props) => {
                 size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
+                backdrop="static" // Prevent closing by clicking outside
+                keyboard={false} // Prevent closing with the Esc key
             >
                 <Modal.Header closeButton></Modal.Header>
                 <Modal.Body>

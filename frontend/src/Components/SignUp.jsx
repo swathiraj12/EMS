@@ -11,7 +11,7 @@ const SignUp = () => {
     const [password, setPassword] = useState('')
     const [confirmPwd, setConfirmPwd] = useState('')
     const [role, setRole] = useState('')
-    const [otp, setOtp] = useState(0)
+    const [otp, setOtp] = useState('')
     const [isOtpSent, setIsOtpSent] = useState(false)
     const [isVerified, setIsVerified] = useState(false)
     const [errors, setErrors] = useState({})
