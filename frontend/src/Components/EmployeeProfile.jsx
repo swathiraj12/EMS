@@ -35,67 +35,74 @@ const EmployeeProfile = () => {
     return (
         <>
             <div className="container view-emp">
-                <div className="row">
-                    <div className='view-emp-display'>
+                <div className="row d-flex justify-content-center">
 
-                        <div className="card emp-card mt-3 mb-3 d-flex flex-row justify-content-center">
-                            <div className="row g-0">
-                                <div className="emp-card-image">
-                                    <img src={employee.picture?.imageUrl} alt="" className="img-fluid card-img" />
+                    <div className="card shadow emp-card">
+                        <div className="card-body">
+                            <div style={{ position: 'relative', height: '150px', overflow: 'visible' }}>
+
+                                <img src={cover} alt="Cover" className="img-fluid" style={{ height: "200px", width: "100%" }} />
+
+                                <img src={employee.picture?.imageUrl} alt="Profile" className="img-fluid rounded-circle" style={{ height: "100px", width: "100px", position: "absolute", bottom: "-90px", left: "50%", transform: "translateX(-50%)" }} />
+                            </div>
+
+                            <div className="row mt-5">
+                                <h2 className="text-center fw-semibold text-uppercase mt-5" style={{ color: '#694F8E'}}>{employee.name} <span className="text-secondary text-capitalize fs-6">({employee.role})</span></h2>
+                                <h5 className="text-center text-secondary text-capitalize">{employee.designation}</h5>
+                                <h6 className="text-center text-secondary text-uppercase">({employee.serialNo})</h6>
+                            </div>
+
+                            <div className="row mt-3">
+                                <div className="col-md-6">
+
+                                    <div className='row'>
+                                        <label htmlFor="" className="form-label fw-bold card-label col-md-12 col-sm-4">Address :</label>
+                                        <h5 className="fw-normal card-detail col-md-12 col-sm-8">
+                                            {employee.address?.address1},
+                                            <br /> {employee.address?.address2},<br /> {employee.address?.state},
+                                            <br /> {employee.address?.pincode}</h5>
+                                    </div>
+
+                                    <div className="row">
+                                        <label htmlFor="" className="form-label fw-bold card-label col-md-12 col-sm-4">Contact No. :</label>
+                                        <h5 className="fw-normal card-detail col-md-12 col-sm-8">{employee.phnNum}</h5>
+                                    </div>
+                                    
+                                    <div className="row">
+                                        <label htmlFor="" className="form-label fw-bold card-label col-md-12 col-sm-4">Emergency Contact No. :</label>
+                                        <h5 className="fw-normal card-detail col-md-12 col-sm-8 mt-sm-4">{employee.emgPhnNo}</h5>
+                                    </div>
                                 </div>
 
-                                <div className="emp-card-details card-body">
-                                    <div className="emp-card-head">
-                                        <h3 className="card-title text-center mt-3">{employee.name}</h3>
-                                        <h6 className="card-title text-center mt-2 mb-3">{employee.designation}</h6>
+                                <div className="col-md-6">
+                                    <div className="row">
+                                        <label htmlFor="" className="form-label fw-bold card-label col-md-12 col-sm-4">Email :</label>
+                                        <h5 classname="fw-normal card-detail col-md-12 col-sm-8">{employee.email}</h5>
                                     </div>
-                                    <h6 className="mt-3"><span>Role:</span> {employee.role}</h6>
-                                    <h6 className="mt-3" style={{ textTransform: 'uppercase' }}><span>Serial No.:</span> {employee.serialNo}</h6>
-                                    <h6 className="mt-3"><span>Email:</span> {employee.email}</h6>
-                                    <h6 className="mt-3"><span>Contact No.:</span> {employee.phnNum}</h6>
-                                    <h6 className="mt-3"><span>Emergency No.:</span> {employee.emgPhnNo}</h6>
-                                    <h6 className="mt-3" style={{ textTransform: 'capitalize' }}><span>Blood Group:</span> {employee.bloodGrp}</h6>
-                                    <h6 className="address mt-3" style={{ textTransform: 'capitalize' }}><span>Address:</span> {employee.address?.address1},
-                                        <br /> {employee.address?.address2},<br /> {employee.address?.state},<br /> {employee.address?.pincode}</h6>
-                                    <h6 className="mt-3"><span>Date of Join:</span> {employee.doj}</h6>
-                                    <h6 className="mt-3"><span>Salary:</span> {employee.salary}</h6>
+
+                                    <div className="row">
+                                        <label htmlFor="" className="form-label fw-bold card-label col-md-12 col-sm-4">DOJ :</label>
+                                        <h5 className="fw-normal card-detail col-md-12 col-sm-8">{employee.doj}</h5>
+                                    </div>
+
+                                    <div className="row">
+                                        <label htmlFor="" className="form-label fw-bold card-label col-md-12 col-sm-4">Salary :</label>
+                                        <h5 className="fw-normal card-detail col-md-12 col-sm-8">{employee.salary}</h5>
+                                    </div>
+
+                                    <div className="row">
+                                        <label htmlFor="" className="form-label fw-bold card-label col-md-12 col-sm-4">Blood Group :</label>
+                                        <h5 className="fw-normal card-detail col-md-12 col-sm-8">{employee.bloodGrp}</h5>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div className="card shadow">
-                            <div className="card-body">
-                                <div style={{ position: 'relative', height: '150px', overflow: 'visible' }}>
-                                    <img src={cover} alt="Cover" className="img-fluid" style={{ height: "200px", width: "100%" }} />
-                                    <img src={employee.picture?.imageUrl} alt="Profile" className="img-fluid rounded-circle" style={{ height: "100px", width: "100px", position: "absolute", bottom: "-85px", left: "50%", transform: "translateX(-50%)" }} />
-                                </div>
-                                <div className="row mt-5">
-                                    <h2 className="text-center fw-semibold  mt-5">Sri Ram R <span className="text-secondary fs-6">(EMP)</span></h2>
-                                    <h5 className="text-center text-secondary">(Developer)</h5>
-                                </div>
-                                
-                                <div className="row mt-4">
-                                    <div className="col-lg-6">
-                                        <label htmlFor="" className="form-label fw-bold">Address :</label>
-                                        <h5 className="fw-normal">Door no, street, colony, district, state, country code</h5>
-                                        <label htmlFor="" className="form-label fw-bold mt-3">Phone Number :</label>
-                                        <h5 className="fw-normal">9876543210</h5>
-                                    </div>
-                                    <div className="col-lg-6">
-                                        <label htmlFor="" className="form-label fw-bold">Email :</label>
-                                        <h5 classname="fw-normal">abc@gmail.com</h5>
-                                        <label htmlFor="" className="form-label fw-bold">Blood :</label>
-                                        <h5 className="fw-normal">A2B +</h5>
-                                        <label htmlFor="" className="form-label fw-bold">DOJ :</label>
-                                        <h5 className="fw-normal">01-01-2024</h5>
-                                    </div>
-                                </div>
-                                <div className="d-flex justify-content-between">
-                                    <button className="btn btn-primary">Edit</button>
-                                    <button className="btn btn-success">Delete</button>
-                                    <button className="btn btn-warning">Update</button>
+                            <div className="row"></div>
 
-                                </div>
+                            <div className="d-flex justify-content-between">
+                                <button className="btn btn-primary">Edit</button>
+                                <button className="btn btn-success">Delete</button>
+                                <button className="btn btn-warning">Update</button>
                             </div>
                         </div>
                     </div>

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import '../Assets/CSS/ViewEmployee.css'
 import axios from 'axios'
 import toast, { Toaster } from "react-hot-toast";
+import cover from '../Assets/Images/dashboardBanner.png'
 
 const AdminProfile = () => {
     const [users, setUsers] = useState([])
@@ -99,6 +100,42 @@ const AdminProfile = () => {
                                 </div>
                             ))}
                     </div>
+
+                    {/* <div className="card shadow">
+                        <div className="card-body">
+                            <div style={{ position: 'relative', height: '150px', overflow: 'visible' }}>
+                                <img src={cover} alt="Cover" className="img-fluid" style={{ height: "200px", width: "100%" }} />
+                                <img src={employee.picture?.imageUrl} alt="Profile" className="img-fluid rounded-circle" style={{ height: "100px", width: "100px", position: "absolute", bottom: "-85px", left: "50%", transform: "translateX(-50%)" }} />
+                            </div>
+                            <div className="row mt-5">
+                                <h2 className="text-center fw-semibold  mt-5">Sri Ram R <span className="text-secondary fs-6">(EMP)</span></h2>
+                                <h5 className="text-center text-secondary">(Developer)</h5>
+                            </div>
+
+                            <div className="row mt-4">
+                                <div className="col-lg-6">
+                                    <label htmlFor="" className="form-label fw-bold">Address :</label>
+                                    <h5 className="fw-normal">Door no, street, colony, district, state, country code</h5>
+                                    <label htmlFor="" className="form-label fw-bold mt-3">Phone Number :</label>
+                                    <h5 className="fw-normal">9876543210</h5>
+                                </div>
+                                <div className="col-lg-6">
+                                    <label htmlFor="" className="form-label fw-bold">Email :</label>
+                                    <h5 classname="fw-normal">abc@gmail.com</h5>
+                                    <label htmlFor="" className="form-label fw-bold">Blood :</label>
+                                    <h5 className="fw-normal">A2B +</h5>
+                                    <label htmlFor="" className="form-label fw-bold">DOJ :</label>
+                                    <h5 className="fw-normal">01-01-2024</h5>
+                                </div>
+                            </div>
+                            <div className="d-flex justify-content-between">
+                                <button className="btn btn-primary">Edit</button>
+                                <button className="btn btn-success">Delete</button>
+                                <button className="btn btn-warning">Update</button>
+
+                            </div>
+                        </div>
+                    </div> */}
                 </div>
             </div>
         </>

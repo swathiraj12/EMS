@@ -6,44 +6,20 @@
     padding: 20px;
 }
 .emp-card{
-    max-width: 400px;
     border: 1px solid #fff;
     border-radius: 10px;
-    border-top-right-radius: 50px;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
     transition: transform 0.5s ease-in-out;
+    max-width: 600px;
 }
 .emp-card:hover{
     transform: scale(1.05);
 }
-.emp-card-image{
-    background: #800080;
-    color: #fff;
-    width: 100%;
-    border-top-right-radius: 50px;
-}
-.emp-card-image .card-img{
-    width: 350px;
-    border-top-right-radius: 50px;
-}
-.emp-card-head h3{
-    color: #800080;
-    text-transform: uppercase;
-}
-.emp-card-head h6{
-    text-transform: uppercase;
-    text-decoration: underline;
-}
-.emp-card-details h6 span {
-    color: #800080;
-    text-transform: capitalize;
-    font-weight: bold;
+.card-label {
+    color: #694F8E;
     font-size: 18px;
 }
-
-.address {
-    line-height: 1.8;
+.card-detail{
+    font-size: 16px;
 }
 
 .emp-nav .nav-btn i {
@@ -61,7 +37,7 @@
         flex-direction: column;
         align-items: center;
     }
-
+/* 
     .emp-card-name,
     .emp-card-details {
         width: auto;
@@ -70,5 +46,5 @@
 
     .emp-card-name .emp-card-image {
         width: 100%;
-    }
+    } */
 }
