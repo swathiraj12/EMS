@@ -63,7 +63,7 @@ const EmployeeProfile = () => {
                             </div>
                         </div>
 
-                        <div className="card">
+                        <div className="card shadow">
                             <div className="card-body">
                                 <div style={{ position: 'relative', height: '150px', overflow: 'visible' }}>
                                     <img src={cover} alt="Cover" className="img-fluid" style={{ height: "200px", width: "100%" }} />
