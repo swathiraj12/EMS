@@ -34,7 +34,7 @@ const EmployeeProfile = () => {
     }
     return (
         <>
-            <div className="container view-emp">
+            <div className="container view-emp mb-3">
                 <div className="row d-flex justify-content-center">
 
                     <div className="card shadow emp-card">
