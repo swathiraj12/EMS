@@ -8,9 +8,10 @@ import axios from 'axios';
 const NavBar = ({ children }) => {
     const { user, signout } = useAuth()
     const [isSmallScreen, setIsSmallScreen] = useState(false)
+    const [sidebarShow, setSidebarShow] = useState(false)
     
     const [users, setUsers] = useState({})
-
+    //Function to fetch user details by email
     const fetchUserDetails = async () => {
         try {
 
@@ -28,19 +29,16 @@ const NavBar = ({ children }) => {
     useEffect(() => {
         fetchUserDetails()
     }, [])
-
+    //Function to check screen size
     const checkScreenSize = () => {
         setIsSmallScreen(window.innerWidth <= 992)
     }
-
     useEffect(() => {
         checkScreenSize()
         window.addEventListener('resize', checkScreenSize)
         return () => window.removeEventListener('resize', checkScreenSize)
     }, [])
-    
-    const [sidebarShow, setSidebarShow] = useState(false)
-
+    //Function to handle sidebar
     const handleShowSidebar = () => {
         setSidebarShow(!sidebarShow)
     }
@@ -89,7 +87,6 @@ const NavBar = ({ children }) => {
                                 </li>
                             </>
                         )}
-
                         {/* Employee only links */}
                         {user?.role === 'Employee' && (
                             <>
@@ -118,5 +115,4 @@ const NavBar = ({ children }) => {
         </div>
     )
 }
-
 export default NavBar

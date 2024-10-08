@@ -17,7 +17,6 @@ const SignUp = () => {
     const [errors, setErrors] = useState({})
 
     const navigate = useNavigate()
-
     // Hot toast notification
     // Success notification
     const notifySuccess = (msg) =>
@@ -28,7 +27,6 @@ const SignUp = () => {
                 color: "rgb(17, 40, 51)",
             },
         });
-
     // Error notification
     const notifyError = (msg) =>
         toast.error(msg, {
@@ -38,7 +36,6 @@ const SignUp = () => {
                 color: "rgb(17, 40, 51)",
             },
         });
-
     //Validation
     const validateForm = () => {
         const newErrors = {};
@@ -49,31 +46,25 @@ const SignUp = () => {
         } else if (!/\S+@\S+\.\S+/.test(email)) {
             newErrors.email = 'Invalid email format';
         }
-
         if (!password) {
             newErrors.password = 'Password is required';
         } else if (!pwdRegex.test(password)) {
             newErrors.password = 'Password must be at least 6 characters, contain one uppercase letter, one number, and one special character';
         }
-
         if (!confirmPwd) {
             newErrors.confirmPwd = 'Please confirm your password';
         } else if (password !== confirmPwd) {
             newErrors.confirmPwd = 'Passwords do not match';
         }
-
         if (!role) {
             newErrors.role = 'Role is required';
         }
-
         if (role !== 'Employee' && !name) {
             newErrors.name = 'Name is required';
         }
-
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
-
     //Function for sending OTP
     const sendOtp = async () => {
         if (!validateForm()) return
@@ -94,7 +85,6 @@ const SignUp = () => {
             notifyError(error.response.data.message || "error in sign-up")
         }
     }
-
     //Function for the verification of sent OTP
     const verifyOtp = async (e) => {
         e.preventDefault()
@@ -118,18 +108,19 @@ const SignUp = () => {
             console.log('Invalid OTP or OTP expired', error);
         }
     }
-
     return (
         <>
+            {/*React hot toast */}
             <Toaster position="top-right" reverseOrder={false} />
             <div className='container sign-up d-flex justify-content-center p-5 my-5 bg-light'>
                 <div className="row">
                     <div className="col-lg-6 col-md-12 p-3">
+                        {/* Sign-up form */}
                         <form className='sign-up-form'>
                             <h1 className='text-center'>ems</h1>
                             <h2 className='text-center'>Sign Up</h2>
                             <p className='text-center'>"A secure login is the first step to protecting your digital world"</p>
-
+                            {/* Conditional render for name input */}
                             {role !== 'Employee' && (
                                 <>
                                     <label className='form-label mt-3 mb-3'>Name:</label>
@@ -171,8 +162,9 @@ const SignUp = () => {
                                 <option value="Employee">Employee</option>
                             </select>
                             {errors.role && <p className="error-text text-danger">{errors.role}</p>}
-
+                            {/* Conditional render for OTP generation */}
                             <div className='d-flex flex-column justify-content-center'>
+                                {/* Call to action button - generate OTP */}
                                 {
                                     !isOtpSent ? (
                                         <button type='button' className='genOtpBtn mt-3 mb-3' onClick={sendOtp}>Generate OTP</button>
@@ -182,27 +174,23 @@ const SignUp = () => {
                                             <input type="number"
                                                 className='form-control'
                                                 value={otp}
-                                                onChange={(e) => setOtp(e.target.value)} />
-
+                                                    onChange={(e) => setOtp(e.target.value)} />
+                                                {/* Call to action button - Verify OTP and Sign up */}
                                             <button type='button' className='genOtpBtn mt-3 mb-3' onClick={verifyOtp}>Verify OTP and Sign up</button>
                                         </>
                                     )
                                 }
                             </div>
-
                             <p className='mt-3'>Already have an account? <a href="/signin">Sign in here</a></p>
-
                         </form>
                     </div>
-                    <div className="col-lg-6 col-md-12">
+                    {/* Sign-up image */}
+                    <div className="signup-img col-lg-6 col-md-12 d-lg-block d-md-none d-sm-none">
                         <img src={signupImg} alt="" className='img-fluid sign-up-img' />
                     </div>
                 </div>
-
             </div>
         </>
-
     )
 }
-
 export default SignUp

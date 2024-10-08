@@ -60,3 +60,9 @@
 .sign-in-img{
     border-radius: 8px;
 }
+/* Media query for small screens */
+@media (max-width: 576px) {
+    .signin-img{
+        display: none;
+    }
+}

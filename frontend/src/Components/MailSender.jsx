@@ -6,7 +6,6 @@ import toast, { Toaster } from "react-hot-toast";
 const MailSender = () => {
     const [subject, setSubject] = useState('');
     const [message, setMessage] = useState('');
-
     // Hot toast notification---
     // Success notification
     const notifySuccess = (msg) =>
@@ -17,7 +16,6 @@ const MailSender = () => {
                 color: "rgb(17, 40, 51)",
             },
         });
-
     // Error notification
     const notifyError = (msg) =>
         toast.error(msg, {
@@ -27,7 +25,7 @@ const MailSender = () => {
                 color: "rgb(17, 40, 51)",
             },
         });
-
+    // Function to Send email to all employees
     const sendEmail = async () => {
         try {
             const response = await axios.post('http://localhost:4000/sendmail-all', { subject, message });
@@ -46,7 +44,6 @@ const MailSender = () => {
             notifyError("Error sending email to all employees")
         }
     };
-
     return (
         <>
             {/* React hot toast  */}
@@ -74,7 +71,7 @@ const MailSender = () => {
                             onChange={e => setMessage(e.target.value)}
                         />
                     </div>
-
+                    {/* Call to action button - send email */}
                     <div className='d-flex justify-content-center'>
                         <button className="btn send-btn" onClick={() => sendEmail(true)}>
                             Send to All Employees
@@ -85,5 +82,4 @@ const MailSender = () => {
         </>
     )
 }
-
 export default MailSender

@@ -8,7 +8,6 @@ const IndividualMailSender = () => {
     const [subject, setSubject] = useState('');
     const [message, setMessage] = useState('');
     const { id } = useParams();
-
     // Hot toast notification---
     // Success notification
     const notifySuccess = (msg) =>
@@ -19,7 +18,6 @@ const IndividualMailSender = () => {
                 color: "rgb(17, 40, 51)",
             },
         });
-
     // Error notification
     const notifyError = (msg) =>
         toast.error(msg, {
@@ -29,8 +27,7 @@ const IndividualMailSender = () => {
                 color: "rgb(17, 40, 51)",
             },
         });
-
-    //Fetching user details
+    //Function to fetch user details by id
     const [users, setUsers] = useState({})
 
     const fetchUserDetails = async () => {
@@ -50,7 +47,7 @@ const IndividualMailSender = () => {
         fetchUserDetails()
     }, [])
 
-    // Send email to an individual employee
+    // Function to Send email to an individual employee
     const sendToIndividual = async () => {
         console.log('id:', id);
 
@@ -69,12 +66,11 @@ const IndividualMailSender = () => {
             notifyError("Error sending email to individual employee")
         }
     };
-
     return (
         <>
             {/* React hot toast  */}
             <Toaster position="top-right" reverseOrder={false} />
-            
+
             <h1 className='page-name text-center mx-5 mt-3' style={{ textTransform: 'uppercase' }}>MAIL SENDER FOR {users?.name}</h1>
 
             <div className='d-flex justify-content-center'>
@@ -100,7 +96,7 @@ const IndividualMailSender = () => {
                             onChange={e => setMessage(e.target.value)}
                         />
                     </div>
-
+                    {/* Call to action button - send email */}
                     <div className='d-flex justify-content-center'>
                         <button className="btn send-btn" onClick={sendToIndividual}>
                             Send Email
@@ -111,5 +107,4 @@ const IndividualMailSender = () => {
         </>
     )
 }
-
 export default IndividualMailSender

@@ -12,10 +12,9 @@ const HeaderNav = ({ handleShowSidebar }) => {
 
     const { user, signout } = useAuth()
     const location = useLocation()
-
-    // const [profileShow, setProfileShow] = React.useState(false);
+    //States for model
     const [changePwd, setChangePwd] = React.useState(false);
-
+    //Function to get the path
     const getPageName = () => {
         const path = location.pathname
         switch (path) {
@@ -37,7 +36,7 @@ const HeaderNav = ({ handleShowSidebar }) => {
                 return ''
         }
     }
-
+    //Function to fetch user details by email
     const fetchUserDetails = async () => {
         try {
 
@@ -63,11 +62,13 @@ const HeaderNav = ({ handleShowSidebar }) => {
 
                 <div className="col-md-6 col-12 d-flex align-content-center">
                     <h3 className='page-name'>{getPageName()}</h3>
+                    {/* Call to action button - menu toggle */}
                     <div className=' text-end p-3 '><span className='sidebar-icon px-2 rounded-2' onClick={handleShowSidebar}><GiHamburgerMenu /></span></div>
                 </div>
 
                 <div className="col-md-6 col-12">
                     <div className="user-info d-flex justify-content-center">
+                        {/* conditional rendering based on role */}
                         {user?.role === 'Employee' ?
                             <div className="dropdownSetting me-3">
                                 <button className='btn dropdown-toggle' type='button' id='settingsDropdown' data-bs-toggle="dropdown" aria-expanded="false">
@@ -89,13 +90,10 @@ const HeaderNav = ({ handleShowSidebar }) => {
                                 </button>
                             </div>
                         }
-
-
                         {/* Welcome Note and User's Name */}
                         <div className="welcome-note">
                             <span>Hi, {user?.role} {users?.name}!</span>
                         </div>
-
                         {/* User's Profile Picture */}
                         {user?.role !== 'Admin' && (
                             <div className="user-profile-picture ms-2">
@@ -110,7 +108,7 @@ const HeaderNav = ({ handleShowSidebar }) => {
                     </div>
                 </div>
             </div>
-
+            {/* Model for password change */}
             <ChangePwd
                 show={changePwd}
                 onHide={() => setChangePwd(false)}
@@ -118,5 +116,4 @@ const HeaderNav = ({ handleShowSidebar }) => {
         </header>
     )
 }
-
 export default HeaderNav

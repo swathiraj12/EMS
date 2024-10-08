@@ -3,12 +3,32 @@ import { useNavigate } from 'react-router-dom'
 import '../Assets/CSS/ViewEmployee.css'
 import axios from 'axios'
 import cover from '../Assets/Images/cardcover.jpg'
+import toast, { Toaster } from "react-hot-toast";
 
 const ViewEmployee = () => {
     const [users, setUsers] = useState([])
 
     const navigate = useNavigate()
-
+    // Hot toast notification---
+    // Success notification
+    const notifySuccess = (msg) =>
+        toast.success(msg, {
+            style: {
+                borderRadius: "10px",
+                background: "#FFFFFF",
+                color: "rgb(17, 40, 51)",
+            },
+        });
+    // Error notification
+    const notifyError = (msg) =>
+        toast.error(msg, {
+            style: {
+                borderRadius: "10px",
+                background: "#FFFFFF",
+                color: "rgb(17, 40, 51)",
+            },
+        });
+    //Function to fetch all users
     const fetchEmployees = async () => {
         try {
             const response = await axios.get('http://localhost:4000/getusers')
@@ -17,37 +37,40 @@ const ViewEmployee = () => {
 
         } catch (error) {
             console.log('Error in fetching the users', error);
+            notifyError("Error on server")
         }
     }
     useEffect(() => {
         fetchEmployees()
     }, [])
-
+    //Function to remove a user
     const removeEmployee = async (_id) => {
         await axios.delete(`http://localhost:4000/deluser/${_id}`)
         fetchEmployees()
+        notifySuccess('User removed')
     }
-
+    //Function to update a user
     const editEmployee = (_id) => {
         console.log('Id:', _id);
         navigate(`/editemp/${_id}`)
     }
-
+    //Function to send mail
     const handleMailClick = (_id) => {
-        console.log('Id:', _id);
-
+        // console.log('Id:', _id);
         navigate(`/indivimail-send/${_id}`)
     }
-
     return (
         <>
+            {/* React hot toast  */}
+            <Toaster position="top-right" reverseOrder={false} />
             <div className="container view-emp">
                 <div className="row d-flex justify-content-center">
+                    {/* Filter method to fetch employee role alone and map method to fetch the details */}
                     <div className='view-emp-display'>
                         {users
                             .filter(user => user.role !== 'Admin')
                             .map((user) => (
-                                <div className="card shadow emp-card mt-5 mb-3" key={user._id} style={{maxWidth: '400px'}}>
+                                <div className="card shadow emp-card mt-5 mb-3" key={user._id} style={{ maxWidth: '400px' }}>
                                     <div className="card-body">
                                         <div style={{ position: 'relative', height: '150px', overflow: 'visible' }}>
 
@@ -106,7 +129,7 @@ const ViewEmployee = () => {
                                                 </div>
                                             </div>
                                         </div>
-
+                                        {/* Call to action button - Remove, update and send mail */}
                                         <div className="d-flex justify-content-center mt-3">
 
                                             <button className="btn nav-btn" onClick={() => removeEmployee(user._id)}>
@@ -123,7 +146,6 @@ const ViewEmployee = () => {
                                         </div>
                                     </div>
                                 </div>
-
                             ))}
                     </div>
                 </div>
@@ -131,5 +153,4 @@ const ViewEmployee = () => {
         </>
     )
 }
-
 export default ViewEmployee

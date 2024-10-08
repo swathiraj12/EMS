@@ -59,3 +59,10 @@
     max-width: 100%;
     border-radius: 8px;
 }
+
+/* Media query for small screens */
+@media (max-width: 576px) {
+    .signup-img {
+        display: none;
+    }
+}

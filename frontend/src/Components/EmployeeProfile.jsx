@@ -9,12 +9,8 @@ const EmployeeProfile = () => {
     const { user } = useAuth()
     const [employee, setEmployee] = useState([])
     const [loading, setLoading] = useState(true)
-
-    console.log('email:', user.email);
-
-
+    //Function to fetch user by email
     const fetchEmployee = async () => {
-
         try {
             const response = await axios.get(`http://localhost:4000/getuser/${user.email}`)
             setEmployee(response.data.users)
@@ -28,7 +24,7 @@ const EmployeeProfile = () => {
     useEffect(() => {
         fetchEmployee()
     }, [])
-
+    //Pre-loader
     if (loading) {
         return <PreLoader />;
     }
@@ -36,7 +32,7 @@ const EmployeeProfile = () => {
         <>
             <div className="container view-emp mb-3">
                 <div className="row d-flex justify-content-center">
-
+                    {/* Employee card */}
                     <div className="card shadow emp-card">
                         <div className="card-body">
                             <div style={{ position: 'relative', height: '150px', overflow: 'visible' }}>
@@ -103,5 +99,4 @@ const EmployeeProfile = () => {
         </>
     )
 }
-
 export default EmployeeProfile

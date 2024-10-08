@@ -9,7 +9,6 @@ const AdminProfile = () => {
     const [users, setUsers] = useState([])
 
     const navigate = useNavigate()
-
     // Hot toast notification---
     // Success notification
     const notifySuccess = (msg) =>
@@ -20,7 +19,6 @@ const AdminProfile = () => {
                 color: "rgb(17, 40, 51)",
             },
         });
-
     // Error notification
     const notifyError = (msg) =>
         toast.error(msg, {
@@ -30,12 +28,11 @@ const AdminProfile = () => {
                 color: "rgb(17, 40, 51)",
             },
         });
-
+    //Function to Fetch all users
     const fetchEmployees = async () => {
         try {
             const response = await axios.get('http://localhost:4000/getusers')
             setUsers(response.data.users)
-            notifySuccess(response.data.message || 'Admin details')
             console.log(response.data.users);
 
         } catch (error) {
@@ -46,22 +43,25 @@ const AdminProfile = () => {
     useEffect(() => {
         fetchEmployees()
     }, [])
-
+    //Function to remove a user
     const removeEmployee = async (_id) => {
         await axios.delete(`http://localhost:4000/deluser/${_id}`)
         fetchEmployees()
+        notifySuccess('User removed')
     }
-
+    //Function to update a user
     const editEmployee = (_id) => {
         console.log('Id:', _id);
         navigate(`/editemp/${_id}`)
     }
+
     return (
         <>
             {/* React hot toast  */}
             <Toaster position="top-right" reverseOrder={false} />
             <div className="container view-emp">
                 <div className="row d-flex justify-content-center">
+                    {/* Filter method to fetch admin role alone and map method to fetch the details */}
                     {users
                         .filter(user => user.role !== 'Employee')
                         .map((user) => (
@@ -124,7 +124,7 @@ const AdminProfile = () => {
                                             </div>
                                         </div>
                                     </div>
-
+                                    {/* Call to action button - Remove and update */}
                                     <div className="d-flex justify-content-center mt-3">
 
                                         <button className="btn nav-btn" onClick={() => removeEmployee(user._id)}>
@@ -137,12 +137,10 @@ const AdminProfile = () => {
                                     </div>
                                 </div>
                             </div>
-
                         ))}
                 </div>
             </div>
         </>
     )
 }
-
 export default AdminProfile

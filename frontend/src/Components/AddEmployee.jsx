@@ -37,7 +37,6 @@ const AddEmployee = () => {
                 color: "rgb(17, 40, 51)",
             },
         });
-
     // Error notification
     const notifyError = (msg) =>
         toast.error(msg, {
@@ -47,7 +46,7 @@ const AddEmployee = () => {
                 color: "rgb(17, 40, 51)",
             },
         });
-
+    //Function to check whether admin exist or not
     useEffect(() => {
         const checkAdminExists = async () => {
             try {
@@ -59,7 +58,7 @@ const AddEmployee = () => {
         }
         checkAdminExists()
     })
-
+    //Function to add employee
     const handleSubmit = async (e) => {
         e.preventDefault()
         setIsLoading(true)
@@ -118,6 +117,7 @@ const AddEmployee = () => {
             notifyError(error.response?.data.message || "Error on add employee")
         }
     }
+    //Pre-loader
     if (isLoading) {
         return <PreLoader/>;
     }
@@ -129,6 +129,7 @@ const AddEmployee = () => {
             <div className='container addemp-form col-sm-8 mt-3 mb-3 p-3'>
                 <h1 className='text-center'>Add Employee Details</h1>
                 <form className='mt-3' onSubmit={handleSubmit}>
+                    {/* Personal Details */}
                     <fieldset>
                         <legend>
                             <h3 className='mt-3 mb-3'>Personal Details</h3>
@@ -163,7 +164,7 @@ const AddEmployee = () => {
                             </div>
                         </div>
                     </fieldset>
-
+                    {/* Address Details */}
                     <fieldset>
                         <legend>
                             <h3 className='mt-3 mb-3'>Address Details</h3>
@@ -191,7 +192,7 @@ const AddEmployee = () => {
                             </div>
                         </div>
                     </fieldset>
-
+                    {/* Official Details */}
                     <fieldset>
                         <legend>
                             <h3 className='mt-3 mb-3'>Official Details</h3>
@@ -223,7 +224,7 @@ const AddEmployee = () => {
                             </div>
                         </div>
                     </fieldset>
-
+                    {/* Employee photo upload */}
                     <fieldset>
                         <legend>
                             <h3 className='mt-3 mb-3'>Upload Employee Photo</h3>
@@ -235,7 +236,7 @@ const AddEmployee = () => {
                             </div>
                         </div>
                     </fieldset>
-
+                    {/* Call to action button - add employee */}
                     <div className='d-flex justify-content-center mt-5 mb-3'>
                         <button className='btn add-btn'>Add Employee</button>
                     </div>
@@ -244,5 +245,4 @@ const AddEmployee = () => {
         </>
     )
 }
-
 export default AddEmployee

@@ -14,7 +14,7 @@ const SignIn = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [errors, setErrors] = useState({})
     const [isLoading, setIsLoading] = useState(false);
-
+    // state for model
     const [forgetPwd, setForgetPwd] = React.useState(false);
 
     const navigate = useNavigate()
@@ -30,7 +30,6 @@ const SignIn = () => {
                 color: "rgb(17, 40, 51)",
             },
         });
-
     // Error notification
     const notifyError = (msg) =>
         toast.error(msg, {
@@ -40,7 +39,6 @@ const SignIn = () => {
                 color: "rgb(17, 40, 51)",
             },
         });
-    
     //Validation
     const validateForm = () => {
         const newErrors = {};
@@ -60,8 +58,6 @@ const SignIn = () => {
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
-
-
     //Function for handling sign-in
     const handleSignIn = async (e) => {
         e.preventDefault()
@@ -94,7 +90,7 @@ const SignIn = () => {
             notifyError(error.response?.data.message || "Error on sign-in")
         }
     }
-
+    //Pre-loader
     if (isLoading) {
         return <PreLoader />;
     }
@@ -138,7 +134,7 @@ const SignIn = () => {
                                         {errorMessage}
                                     </div>
                                 )}
-
+                                {/* Call to action button - sign-in */}
                                 <div className='d-flex flex-column justify-content-center mt-3'>
                                     <button type="submit" className='signInBtn mt-3 mb-3 '>Sign In</button>
 
@@ -146,14 +142,14 @@ const SignIn = () => {
                                 </div>
                             </form>
                         </div>
-
-                        <div className="col-lg-6 col-md-12">
+                        {/* Sign-in image */}
+                        <div className="signin-img col-lg-6 col-md-12 d-lg-block d-md-none d-sm-none">
                             <img src={signinImg} alt="" className='img-fluid sign-in-img' />
                         </div>
                     </div>
                 </div>
             </div>
-
+            {/* Forget password model */}
             <ForgetPwd
                 show={forgetPwd}
                 onHide={() => setForgetPwd(false)}
@@ -161,5 +157,4 @@ const SignIn = () => {
         </>
     )
 }
-
 export default SignIn

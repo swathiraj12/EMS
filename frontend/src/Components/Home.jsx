@@ -9,9 +9,8 @@ const Home = () => {
   const [empTotalCount, setEmpTotalCount] = useState(0)
 
   const { user } = useAuth()
-  // console.log(user);
 
-  // Getting total employee count
+  // Function to get total employee count
   const fetchEmployees = async () => {
     try {
       const response = await axios.get('http://localhost:4000/getusers')
@@ -23,7 +22,6 @@ const Home = () => {
       console.log('Error in fetching the users', error);
     }
   }
-
   useEffect(() => {
     fetchEmployees()
   }, [])
@@ -50,20 +48,17 @@ const Home = () => {
                 </h2>
               </div>
               <h5 className='empCountCardName mt-3'>Total Employees</h5>
+              {/* Conditional rendering based on role */}
               {
                 user?.role === 'Admin' ? (
                   <h6 className="empCardMoreInfo mt-3"><NavLink to='/employee'>More Info</NavLink></h6>
                 ) : ('')
               }
-
-
             </div>
           </div>
         </div>
       </div>
-
     </div>
   )
 }
-
 export default Home

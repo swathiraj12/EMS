@@ -11,10 +11,9 @@ const EditEmployee = () => {
     const [previewImg, setPreviewImg] = useState(null)
 
     const navigate = useNavigate()
-    //Fetching single user
+    //Function to fetch user by id
     const fetchUser = async () => {
         console.log(id);
-
         try {
             const response = await axios.get(`http://localhost:4000/getuserbyid/${id}`)
             const data = response.data.users
@@ -29,18 +28,18 @@ const EditEmployee = () => {
     useEffect(() => {
         fetchUser()
     }, [])
-    //handling file change
+    //Function to handle file change
     const handleFileChange = (e) => {
         const pic = e.target.files[0]
         setUser({ ...user, picture: pic })
         setPreviewImg(URL.createObjectURL(pic))
     }
-    //handling input change
+    //Function to handle input change
     const handleInputChange = (e) => {
         const { value, name } = e.target
         setUser({ ...user, [name]: value })
     }
-    //handling address input change
+    //Function to handle address input change
     const handleAddressInputChange = (e) => {
         const { value, name } = e.target
         setUser({
@@ -49,7 +48,7 @@ const EditEmployee = () => {
             }
         })
     }
-
+    //Function to handle editing user
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
@@ -85,18 +84,19 @@ const EditEmployee = () => {
             console.log('Error in editing the user details', error);
         }
     }
-
+    //Pre-loader
     if (loading) {
         return < PreLoader />;
     }
-
     return (
         <>
-            <h1 className='page-name text-center mx-5 mt-3 mb-5' style={{textTransform:'uppercase'}}>Edit Employee Details</h1>
-
+            
+            <h1 className='page-name text-center mx-5 mt-3 mb-5' style={{ textTransform: 'uppercase' }}>Edit Employee Details</h1>
+            {/* Edit employee form */}
             <div className='container editemp-form mt-3 mb-3 p-3'>
                 <h1 className='text-center'>Edit Employee Details</h1>
                 <form className='mt-3' onSubmit={handleSubmit}>
+                    {/* Personal Details */}
                     <fieldset>
                         <legend>
                             <h3 className='mt-3 mb-3'>Personal Details</h3>
@@ -137,7 +137,7 @@ const EditEmployee = () => {
                             </div>
                         </div>
                     </fieldset>
-
+                    {/* Address Details */}
                     <fieldset>
                         <legend>
                             <h3 className='mt-3 mb-3'>Address Details</h3>
@@ -169,7 +169,7 @@ const EditEmployee = () => {
                             </div>
                         </div>
                     </fieldset>
-
+                    {/* Official Details */}
                     <fieldset>
                         <legend>
                             <h3 className='mt-3 mb-3'>Official Details</h3>
@@ -206,7 +206,7 @@ const EditEmployee = () => {
                             </div>
                         </div>
                     </fieldset>
-
+                    {/* Employee photo upload */}
                     <fieldset>
                         <legend>
                             <h3 className='mt-3 mb-3'>Upload Employee Photo</h3>
@@ -215,7 +215,7 @@ const EditEmployee = () => {
                         <div className="row mt-3">
                             <div className="col-md-6">
                                 <input type="file" name='picture' className="form-control" onChange={handleFileChange} />
-
+                                {/* Conditional render to display image */}
                                 {user.picture?.imageUrl ? (
                                     <img
                                         src={user.picture.imageUrl}
@@ -236,16 +236,13 @@ const EditEmployee = () => {
                             </div>
                         </div>
                     </fieldset>
-
+                    {/* Call to action button - Edit employee */}
                     <div className='d-flex justify-content-center mt-5 mb-3'>
                         <button className='btn edit-btn'>Edit Employee</button>
                     </div>
                 </form>
             </div>
         </>
-
-
     )
 }
-
 export default EditEmployee
