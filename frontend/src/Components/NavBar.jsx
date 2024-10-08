@@ -3,7 +3,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 import '../Assets/CSS/NavBar.css'
 import { useAuth } from '../Context/ContextAuth';
 import HeaderNav from './HeaderNav';
-import axios from 'axios';
+// import axios from 'axios';
 
 const NavBar = ({ children }) => {
     const { user, signout } = useAuth()
@@ -12,23 +12,21 @@ const NavBar = ({ children }) => {
     
     const [users, setUsers] = useState({})
     //Function to fetch user details by email
-    const fetchUserDetails = async () => {
-        try {
-
-            const response = await axios.get(`http://localhost:4000/userget/${user.email}`)
-            if (response.data && response.data.userDetails) {
-                setUsers(response.data.userDetails)
-            } else {
-                console.error('No user details found in response')
-            }
-
-        } catch (error) {
-            console.log('Error in fetching the users', error);
-        }
-    }
-    useEffect(() => {
-        fetchUserDetails()
-    }, [])
+    // const fetchUserDetails = async () => {
+    //     try {
+    //         const response = await axios.get(`http://localhost:4000/userget/${user.email}`)
+    //         if (response.data && response.data.userDetails) {
+    //             setUsers(response.data.userDetails)
+    //         } else {
+    //             console.error('No user details found in response')
+    //         }
+    //     } catch (error) {
+    //         console.log('Error in fetching the users', error);
+    //     }
+    // }
+    // useEffect(() => {
+    //     fetchUserDetails()
+    // }, [])
     //Function to check screen size
     const checkScreenSize = () => {
         setIsSmallScreen(window.innerWidth <= 992)
