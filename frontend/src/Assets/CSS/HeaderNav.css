@@ -54,6 +54,14 @@ ul .dropdown-item:focus, ul .dropdown-item:hover, ul .dropdown-item:active{
     background: #694F8E;
     color: #fff;
 }
+.admin-signout-btn{
+    color: #694F8E;
+    display: none;
+}
+.admin-signout-btn:hover{
+    background: #694F8E;
+    color: #fff;
+}
 
 @media (max-width: 768px){
     .admin-header{
@@ -76,6 +84,10 @@ ul .dropdown-item:focus, ul .dropdown-item:hover, ul .dropdown-item:active{
         right: 0;
         top: 18px;
         color: #694F8E;
+    }
+    .admin-signout-btn{
+        color: #694F8E;
+        display: block;
     }
 }
 

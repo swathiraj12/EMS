@@ -83,10 +83,9 @@ const HeaderNav = ({ handleShowSidebar }) => {
                                 </ul>
                             </div>
                             :
-                            <div className="icon-only me-3">
-                                <button className='btn signout-btn' type='button' onClick={signout}>
-                                    <i className="fa-solid fa-right-from-bracket me-2"></i>
-                                    <span>Sign out</span>
+                            <div className="me-3">
+                                <button className='btn admin-signout-btn' type='button' onClick={signout}>
+                                    <i className="fa-solid fa-right-from-bracket"></i>
                                 </button>
                             </div>
                         }
