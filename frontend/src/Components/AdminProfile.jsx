@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import '../Assets/CSS/ViewEmployee.css'
 import axios from 'axios'
 import toast, { Toaster } from "react-hot-toast";
-import cover from '../Assets/Images/dashboardBanner.png'
+import cover from '../Assets/Images/cardcover.jpg'
 
 const AdminProfile = () => {
     const [users, setUsers] = useState([])
@@ -61,81 +61,84 @@ const AdminProfile = () => {
             {/* React hot toast  */}
             <Toaster position="top-right" reverseOrder={false} />
             <div className="container view-emp">
-                <div className="row">
-                    <div className='view-emp-display'>
-                        {users
-                            .filter(user => user.role !== 'Employee')
-                            .map((user) => (
-                                <div className="card emp-card mt-3 mb-3 d-flex flex-row justify-content-center" style={{ maxWidth: '500px' }} key={user._id}>
-                                    <div className="row g-0">
-                                        <div className="emp-card-image">
-                                            <img src={user.picture.imageUrl} alt="" className="img-fluid card-img" />
+                <div className="row d-flex justify-content-center">
+                    {users
+                        .filter(user => user.role !== 'Employee')
+                        .map((user) => (
+                            <div className="card shadow emp-card mt-5 mb-3" key={user._id}>
+                                <div className="card-body">
+                                    <div style={{ position: 'relative', height: '150px', overflow: 'visible' }}>
+
+                                        <img src={cover} alt="Cover" className="img-fluid" style={{ height: "200px", width: "100%" }} />
+
+                                        <img src={user.picture?.imageUrl} alt="Profile" className="img-fluid rounded-circle" style={{ height: "100px", width: "100px", position: "absolute", bottom: "-90px", left: "50%", transform: "translateX(-50%)" }} />
+                                    </div>
+
+                                    <div className="row mt-5">
+                                        <h2 className="text-center fw-semibold text-uppercase mt-5" style={{ color: '#694F8E' }}>{user.name} <span className="text-secondary text-capitalize fs-6">({user.role})</span></h2>
+                                        <h5 className="text-center text-secondary text-capitalize">{user.designation}</h5>
+                                        <h6 className="text-center text-secondary text-uppercase">({user.serialNo})</h6>
+                                    </div>
+
+                                    <div className="row mt-3">
+                                        <div className="col-md-6">
+
+                                            <div className='row'>
+                                                <label htmlFor="" className="form-label fw-bold card-label col-md-12 col-sm-4">Address :</label>
+                                                <h5 className="fw-normal card-detail address col-md-12 col-sm-8">
+                                                    {user.address?.address1},
+                                                    <br /> {user.address?.address2},<br /> {user.address?.state},
+                                                    <br /> {user.address?.pincode}</h5>
+                                            </div>
+
+                                            <div className="row">
+                                                <label htmlFor="" className="form-label fw-bold card-label col-md-12 col-sm-4">Contact No. :</label>
+                                                <h5 className="fw-normal card-detail col-md-12 col-sm-8">{user.phnNum}</h5>
+                                            </div>
+
+                                            <div className="row">
+                                                <label htmlFor="" className="form-label fw-bold card-label col-md-12 col-sm-4">Emergency Contact No. :</label>
+                                                <h5 className="fw-normal card-detail col-md-12 col-sm-8">{user.emgPhnNo}</h5>
+                                            </div>
                                         </div>
 
-                                        <div className="emp-card-details card-body">
-                                            <div className="emp-card-head">
-                                                <h3 className="card-title text-center mt-3">{user.name}</h3>
-                                                <h6 className="card-title text-center mt-2 mb-3">{user.designation}</h6>
+                                        <div className="col-md-6">
+                                            <div className="row">
+                                                <label htmlFor="" className="form-label fw-bold card-label col-md-12 col-sm-4">Email :</label>
+                                                <h5 className="fw-normal card-detail col-md-12 col-sm-8">{user.email}</h5>
                                             </div>
-                                            <h6 className="mt-3"><span>Role:</span> {user.role}</h6>
-                                            <h6 className="mt-3" style={{ textTransform: 'uppercase' }}><span>Serial No.:</span> {user.serialNo}</h6>
-                                            <h6 className="mt-3"><span>Email:</span> {user.email}</h6>
-                                            <h6 className="mt-3"><span>Contact No.:</span> {user.phnNum}</h6>
-                                            <h6 className="mt-3"><span>Emergency No.:</span> {user.emgPhnNo}</h6>
-                                            <h6 className="mt-3" style={{ textTransform: 'capitalize' }}><span>Blood Group:</span> {user.bloodGrp}</h6>
-                                            <h6 className="address mt-3" style={{ textTransform: 'capitalize' }}><span>Address:</span> {user.address.address1},<br /> {user.address.address2},<br /> {user.address.state},<br /> {user.address.pincode}</h6>
-                                            <h6 className="mt-3"><span>Date of Join:</span> {user.doj}</h6>
-                                            <h6 className="mt-3"><span>Salary:</span> {user.salary}</h6>
 
-                                            <div className="emp-nav d-flex justify-content-center mt-3">
-                                                <button className="btn nav-btn" onClick={() => editEmployee(user._id)}>
-                                                    <i className="fa-solid fa-user-pen"></i>
-                                                </button>
-                                                <button className="btn nav-btn" onClick={() => removeEmployee(user._id)}>
-                                                    <i className="fa-solid fa-user-xmark"></i>
-                                                </button>
+                                            <div className="row">
+                                                <label htmlFor="" className="form-label fw-bold card-label col-md-12 col-sm-4">DOJ :</label>
+                                                <h5 className="fw-normal card-detail col-md-12 col-sm-8">{user.doj}</h5>
+                                            </div>
+
+                                            <div className="row">
+                                                <label htmlFor="" className="form-label fw-bold card-label col-md-12 col-sm-4">Salary :</label>
+                                                <h5 className="fw-normal card-detail col-md-12 col-sm-8">{user.salary}</h5>
+                                            </div>
+
+                                            <div className="row">
+                                                <label htmlFor="" className="form-label fw-bold card-label col-md-12 col-sm-4">Blood Group :</label>
+                                                <h5 className="fw-normal card-detail text-capitalize col-md-12 col-sm-8">{user.bloodGrp}</h5>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            ))}
-                    </div>
 
-                    {/* <div className="card shadow">
-                        <div className="card-body">
-                            <div style={{ position: 'relative', height: '150px', overflow: 'visible' }}>
-                                <img src={cover} alt="Cover" className="img-fluid" style={{ height: "200px", width: "100%" }} />
-                                <img src={employee.picture?.imageUrl} alt="Profile" className="img-fluid rounded-circle" style={{ height: "100px", width: "100px", position: "absolute", bottom: "-85px", left: "50%", transform: "translateX(-50%)" }} />
-                            </div>
-                            <div className="row mt-5">
-                                <h2 className="text-center fw-semibold  mt-5">Sri Ram R <span className="text-secondary fs-6">(EMP)</span></h2>
-                                <h5 className="text-center text-secondary">(Developer)</h5>
-                            </div>
+                                    <div className="d-flex justify-content-center mt-3">
 
-                            <div className="row mt-4">
-                                <div className="col-lg-6">
-                                    <label htmlFor="" className="form-label fw-bold">Address :</label>
-                                    <h5 className="fw-normal">Door no, street, colony, district, state, country code</h5>
-                                    <label htmlFor="" className="form-label fw-bold mt-3">Phone Number :</label>
-                                    <h5 className="fw-normal">9876543210</h5>
-                                </div>
-                                <div className="col-lg-6">
-                                    <label htmlFor="" className="form-label fw-bold">Email :</label>
-                                    <h5 classname="fw-normal">abc@gmail.com</h5>
-                                    <label htmlFor="" className="form-label fw-bold">Blood :</label>
-                                    <h5 className="fw-normal">A2B +</h5>
-                                    <label htmlFor="" className="form-label fw-bold">DOJ :</label>
-                                    <h5 className="fw-normal">01-01-2024</h5>
+                                        <button className="btn nav-btn" onClick={() => removeEmployee(user._id)}>
+                                            <i className="fa-solid fa-user-xmark"></i>
+                                        </button>
+
+                                        <button className="btn nav-btn" onClick={() => editEmployee(user._id)}>
+                                            <i className="fa-solid fa-user-pen"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="d-flex justify-content-between">
-                                <button className="btn btn-primary">Edit</button>
-                                <button className="btn btn-success">Delete</button>
-                                <button className="btn btn-warning">Update</button>
 
-                            </div>
-                        </div>
-                    </div> */}
+                        ))}
                 </div>
             </div>
         </>

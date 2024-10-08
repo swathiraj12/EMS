@@ -240,7 +240,7 @@ const MailToAll = async (req, res) => {
             from: 'swathijayabalraj@gmail.com',
             to: employeeEmails.map(e => e.email).join(','),
             subject,
-            html: message
+            html: `<h1>${message}<h1/>`
         }
         const mailsent = transporter.sendMail(mailOptionToall)
         return res.status(200).json({ Message: 'Email sent to all employees successfully', mailsent })

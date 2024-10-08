@@ -3,7 +3,7 @@ import '../Assets/CSS/ViewEmployee.css'
 import axios from 'axios'
 import { useAuth } from '../Context/ContextAuth'
 import PreLoader from './PreLoader'
-import cover from '../Assets/Images/dashboardBanner.png'
+import cover from '../Assets/Images/cardcover.jpg'
 
 const EmployeeProfile = () => {
     const { user } = useAuth()
@@ -57,7 +57,7 @@ const EmployeeProfile = () => {
 
                                     <div className='row'>
                                         <label htmlFor="" className="form-label fw-bold card-label col-md-12 col-sm-4">Address :</label>
-                                        <h5 className="fw-normal card-detail col-md-12 col-sm-8">
+                                        <h5 className="fw-normal card-detail address col-md-12 col-sm-8">
                                             {employee.address?.address1},
                                             <br /> {employee.address?.address2},<br /> {employee.address?.state},
                                             <br /> {employee.address?.pincode}</h5>
@@ -70,14 +70,14 @@ const EmployeeProfile = () => {
                                     
                                     <div className="row">
                                         <label htmlFor="" className="form-label fw-bold card-label col-md-12 col-sm-4">Emergency Contact No. :</label>
-                                        <h5 className="fw-normal card-detail col-md-12 col-sm-8 mt-sm-4">{employee.emgPhnNo}</h5>
+                                        <h5 className="fw-normal card-detail col-md-12 col-sm-8">{employee.emgPhnNo}</h5>
                                     </div>
                                 </div>
 
                                 <div className="col-md-6">
                                     <div className="row">
                                         <label htmlFor="" className="form-label fw-bold card-label col-md-12 col-sm-4">Email :</label>
-                                        <h5 classname="fw-normal card-detail col-md-12 col-sm-8">{employee.email}</h5>
+                                        <h5 className="fw-normal card-detail col-md-12 col-sm-8">{employee.email}</h5>
                                     </div>
 
                                     <div className="row">
@@ -92,17 +92,9 @@ const EmployeeProfile = () => {
 
                                     <div className="row">
                                         <label htmlFor="" className="form-label fw-bold card-label col-md-12 col-sm-4">Blood Group :</label>
-                                        <h5 className="fw-normal card-detail col-md-12 col-sm-8">{employee.bloodGrp}</h5>
+                                        <h5 className="fw-normal card-detail text-capitalize col-md-12 col-sm-8">{employee.bloodGrp}</h5>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div className="row"></div>
-
-                            <div className="d-flex justify-content-between">
-                                <button className="btn btn-primary">Edit</button>
-                                <button className="btn btn-success">Delete</button>
-                                <button className="btn btn-warning">Update</button>
                             </div>
                         </div>
                     </div>

@@ -3,7 +3,6 @@ import { useAuth } from '../Context/ContextAuth'
 import { useLocation } from 'react-router-dom'
 import profilePic from '../Assets/Images/profile1.jpg'
 import '../Assets/CSS/HeaderNav.css'
-// import Profileshow from './Profileshow'
 import ChangePwd from './ChangePwd'
 import axios from 'axios'
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -94,7 +93,7 @@ const HeaderNav = ({ handleShowSidebar }) => {
 
                         {/* Welcome Note and User's Name */}
                         <div className="welcome-note">
-                            <span>Hi, {user?.role} {user?.name}!</span>
+                            <span>Hi, {user?.role} {users?.name}!</span>
                         </div>
 
                         {/* User's Profile Picture */}

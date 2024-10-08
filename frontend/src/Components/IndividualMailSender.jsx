@@ -2,32 +2,35 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../Assets/CSS/MailSender.css';
 import { useParams } from 'react-router-dom';
+import toast, { Toaster } from "react-hot-toast";
 
 const IndividualMailSender = () => {
     const [subject, setSubject] = useState('');
     const [message, setMessage] = useState('');
     const { id } = useParams();
 
-    // Send email to an individual employee
-    const sendToIndividual = async () => {
-        console.log('id:', id);
+    // Hot toast notification---
+    // Success notification
+    const notifySuccess = (msg) =>
+        toast.success(msg, {
+            style: {
+                borderRadius: "10px",
+                background: "#FFFFFF",
+                color: "rgb(17, 40, 51)",
+            },
+        });
 
-        try {
-            const response = await axios.post(`http://localhost:4000/sendmail-indivi/${id}`, { subject, message })
+    // Error notification
+    const notifyError = (msg) =>
+        toast.error(msg, {
+            style: {
+                borderRadius: "10px",
+                background: "#FFFFFF",
+                color: "rgb(17, 40, 51)",
+            },
+        });
 
-            console.log(response.data);
-
-            alert(`Mail sent to employee with ID: ${id}`);
-
-            setSubject('');
-            setMessage('');
-
-        } catch (error) {
-            console.log('Error sending email:', error);
-            alert('Error sending email to individual employee');
-        }
-    };
-
+    //Fetching user details
     const [users, setUsers] = useState({})
 
     const fetchUserDetails = async () => {
@@ -46,8 +49,32 @@ const IndividualMailSender = () => {
     useEffect(() => {
         fetchUserDetails()
     }, [])
+
+    // Send email to an individual employee
+    const sendToIndividual = async () => {
+        console.log('id:', id);
+
+        try {
+            const response = await axios.post(`http://localhost:4000/sendmail-indivi/${id}`, { subject, message })
+
+            console.log(response.data);
+
+            notifySuccess(response.data.message || `Mail Sent to ${users?.name}`)
+
+            setSubject('');
+            setMessage('');
+
+        } catch (error) {
+            console.log('Error sending email:', error);
+            notifyError("Error sending email to individual employee")
+        }
+    };
+
     return (
         <>
+            {/* React hot toast  */}
+            <Toaster position="top-right" reverseOrder={false} />
+            
             <h1 className='page-name text-center mx-5 mt-3' style={{ textTransform: 'uppercase' }}>MAIL SENDER FOR {users?.name}</h1>
 
             <div className='d-flex justify-content-center'>
